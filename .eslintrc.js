@@ -8,8 +8,7 @@ module.exports = {
       'warn',
       {
         enableDangerousAutofixThisMayCauseInfiniteLoops: true,
-        additionalHooks:
-          '(useAnimatedStyle|useAnimatedProps|useDerivedValue|useAnimatedGestureHandler)',
+        additionalHooks: '(useAnimatedStyle|useAnimatedProps|useDerivedValue|useAnimatedGestureHandler)',
       },
     ],
     '@typescript-eslint/prefer-optional-chain': 'warn',

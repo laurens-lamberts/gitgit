@@ -4,3 +4,8 @@ export type HistoryRecord = {
   commitId: string;
   commitMessage: string;
 };
+
+export type BranchRecord = {
+  name: string;
+  active: boolean;
+};

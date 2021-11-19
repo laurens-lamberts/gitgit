@@ -1,34 +1,70 @@
 import { NativeModules } from 'react-native';
-import { GetHistoryType, HistoryRecord } from './types';
+import { BranchRecord, GetHistoryType, HistoryRecord } from './types';
 
-const BASE_PATH = '~/ws/react-native/landal-park-app-v2';
+const repositoryPath = '~/ws/react-native/landal-park-app-v2';
 const { ShellTools } = NativeModules;
 
-export const getHistory = async (type: GetHistoryType = 'LIMITED') => {
-  let command = `cd ${BASE_PATH} && git log`;
+export const getHistory = async (type: GetHistoryType = 'LIMITED'): Promise<HistoryRecord[]> => {
+  const LIMIT = 10;
+  let command = `cd ${repositoryPath} && git log -${LIMIT}`;
   switch (type) {
     case 'LIMITED': {
-      command += ' --oneline';
-      break;
+      const output: string = await ShellTools.executeCommand(command + ' --oneline');
+      return output.split('\n').map((l) => {
+        const endOfId = l.indexOf(' ');
+        return {
+          commitId: l.substring(0, endOfId),
+          commitMessage: l.substring(endOfId + 1, l.length),
+        };
+      });
     }
     case 'EXTENDED': {
-      break;
+      // Not implemented
+      return [];
     }
     case 'FULL': {
+      // Not implemented
       command += ' --stat';
-      break;
+      return [];
     }
   }
-  command += ' -10';
-  const output: string = await ShellTools.executeCommand(command);
+};
+export const getDiff = async () => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git diff`);
+};
+export const getStatus = async () => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git status`);
+};
+export const commit = async (message: string) => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git commit -m ${message}`);
+};
+export const push = async () => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git push`);
+};
+export const stageAll = async () => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git add .`);
+};
+export const stage = async (fileName: string) => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git add ${fileName}`);
+};
+export const stageUndo = async (fileName: string) => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git reset HEAD ${fileName}`);
+};
+export const branchCreate = async (name: string) => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git checkout -b ${name}`);
+};
+export const branchSwitch = async (name: string) => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git checkout ${name}`);
+};
+export const getBranches = async (remote?: boolean): Promise<BranchRecord[]> => {
+  const output: string = await ShellTools.executeCommand(
+    `cd ${repositoryPath} && git branch${remote ? ' -r' : ''}`
+  );
   return output.split('\n').map((l) => {
-    const endOfId = l.indexOf(' ');
-    const historyRecord: HistoryRecord = {
-      commitId: l.substring(0, endOfId),
-      commitMessage: l.substring(endOfId + 1, l.length),
+    const active = l.indexOf('*') > -1;
+    return {
+      name: l.substring(active ? 2 : 0, l.length).trim(),
+      active,
     };
-    return historyRecord;
   });
 };
-export const getDiff = async () => await ShellTools.executeCommand(`cd ${BASE_PATH} && git diff`);
-export const getStatus = async () => await ShellTools.executeCommand(`cd ${BASE_PATH} && git status`);
