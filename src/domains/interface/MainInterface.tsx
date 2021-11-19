@@ -149,22 +149,44 @@ export default function MainInterface() {
           <View style={{ flex: 1, margin: 20, padding: 8, borderWidth: 2, borderRadius: 4 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Unstaged</Text>
             {unstagedFiles?.map((name) => (
-              <Text
+              <View
                 key={name}
-                style={{
-                  marginBottom: 16,
-                }}
+                style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
               >
-                {name}
-              </Text>
+                <Text
+                  style={{
+                    marginBottom: 16,
+                    flexShrink: 1,
+                  }}
+                >
+                  {name}
+                </Text>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'limegreen',
+                    borderRadius: 4,
+                    paddingHorizontal: 12,
+                    paddingVertical: 4,
+                    alignItems: 'center',
+                    marginBottom: 8,
+                  }}
+                  onPress={async () => {
+                    //await commit(commitMessage);
+                  }}
+                >
+                  <Text>Stage</Text>
+                </TouchableOpacity>
+              </View>
             ))}
           </View>
           <View style={{ flex: 1, margin: 20, padding: 8, borderWidth: 2, borderRadius: 4 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Staged</Text>
             {stagedFiles?.map((name) => (
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View
+                key={name}
+                style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+              >
                 <Text
-                  key={name}
                   style={{
                     marginBottom: 16,
                     flexShrink: 1,
@@ -200,39 +222,41 @@ export default function MainInterface() {
               onChangeText={(text) => setCommitMessage(text)}
               value={commitMessage}
             />
-            <TouchableOpacity
-              style={{
-                backgroundColor: 'limegreen',
-                borderRadius: 4,
-                padding: 12,
-                alignItems: 'center',
-                width: '100%',
-                height: 40,
-                marginBottom: 8,
-              }}
-              onPress={async () => {
-                await commit(commitMessage);
-                alert('commit performed');
-              }}
-            >
-              {performingCommit ? <ActivityIndicator color="white" /> : <Text>Commit</Text>}
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                backgroundColor: 'limegreen',
-                borderRadius: 4,
-                padding: 12,
-                alignItems: 'center',
-                width: '100%',
-                height: 40,
-              }}
-              onPress={async () => {
-                await push();
-                alert('pushed');
-              }}
-            >
-              {performingPush ? <ActivityIndicator color="white" /> : <Text>Push</Text>}
-            </TouchableOpacity>
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: 'limegreen',
+                  borderRadius: 4,
+                  padding: 12,
+                  alignItems: 'center',
+                  flex: 1,
+                  height: 40,
+                  marginRight: 16,
+                }}
+                onPress={async () => {
+                  await commit(commitMessage);
+                  alert('commit performed');
+                }}
+              >
+                {performingCommit ? <ActivityIndicator color="white" /> : <Text>Commit</Text>}
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: 'limegreen',
+                  borderRadius: 4,
+                  padding: 12,
+                  alignItems: 'center',
+                  flex: 1,
+                  height: 40,
+                }}
+                onPress={async () => {
+                  await push();
+                  alert('pushed');
+                }}
+              >
+                {performingPush ? <ActivityIndicator color="white" /> : <Text>Push</Text>}
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>

@@ -37,11 +37,11 @@ export const getStatus = async () => {
 };
 export const getStaged = async () => {
   const output = await ShellTools.executeCommand(`cd ${repositoryPath} && git diff --name-only --cached`);
-  return output.split('\n');
+  return output.split('\n').filter((e) => e);
 };
 export const getUnstaged = async () => {
   const output = await ShellTools.executeCommand(`cd ${repositoryPath} && git diff --name-only`);
-  return output.split('\n');
+  return output.split('\n').filter((e) => e);
 };
 export const commit = async (message: string) => {
   await ShellTools.executeCommand(`cd ${repositoryPath} && git commit -m ${message}`);
