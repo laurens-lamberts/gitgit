@@ -1,6 +1,14 @@
-import { branchSwitch, getBranches, getHistory, push, commit } from '@domains/git/api';
+import {
+  branchSwitch,
+  getBranches,
+  getHistory,
+  push,
+  commit,
+  getStaged,
+  getUnstaged,
+} from '@domains/git/api';
 import { BranchRecord, HistoryRecord } from '@domains/git/types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -21,6 +29,9 @@ export default function MainInterface() {
   const [historyRecords, setHistoryRecords] = useState<HistoryRecord[]>();
   const [localBranches, setLocalBranches] = useState<BranchRecord[]>();
   const [remoteBranches, setRemoteBranches] = useState<BranchRecord[]>();
+  const [unstagedFiles, setUnstagedFiles] = useState<string[]>();
+  const [stagedFiles, setStagedFiles] = useState<string[]>();
+
   const [commitMessage, setCommitMessage] = useState('');
 
   const syncGitStatus = async () => {
@@ -28,8 +39,14 @@ export default function MainInterface() {
     setHistoryRecords(await getHistory('LIMITED'));
     setLocalBranches(await getBranches());
     setRemoteBranches(await getBranches(true));
+    setUnstagedFiles(await getUnstaged());
+    setStagedFiles(await getStaged());
     setSyncing(false);
   };
+
+  useEffect(() => {
+    syncGitStatus();
+  }, []);
 
   return (
     <SafeAreaView
@@ -131,9 +148,47 @@ export default function MainInterface() {
         <View style={{ flex: 1, backgroundColor: 'red' }}>
           <View style={{ flex: 1, margin: 20, padding: 8, borderWidth: 2, borderRadius: 4 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Unstaged</Text>
+            {unstagedFiles?.map((name) => (
+              <Text
+                key={name}
+                style={{
+                  marginBottom: 16,
+                }}
+              >
+                {name}
+              </Text>
+            ))}
           </View>
           <View style={{ flex: 1, margin: 20, padding: 8, borderWidth: 2, borderRadius: 4 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Staged</Text>
+            {stagedFiles?.map((name) => (
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Text
+                  key={name}
+                  style={{
+                    marginBottom: 16,
+                    flexShrink: 1,
+                  }}
+                >
+                  {name}
+                </Text>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'limegreen',
+                    borderRadius: 4,
+                    paddingHorizontal: 12,
+                    paddingVertical: 4,
+                    alignItems: 'center',
+                    marginBottom: 8,
+                  }}
+                  onPress={async () => {
+                    //await commit(commitMessage);
+                  }}
+                >
+                  <Text>Unstage</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
           </View>
           <View style={{ flex: 1, margin: 20, padding: 8, borderWidth: 2, borderRadius: 4 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Commit</Text>
