@@ -41,6 +41,12 @@ export const commit = async (message: string) => {
 export const push = async () => {
   await ShellTools.executeCommand(`cd ${repositoryPath} && git push`);
 };
+export const pull = async () => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git pull`);
+};
+export const fetch = async () => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git fetch`);
+};
 export const stageAll = async () => {
   await ShellTools.executeCommand(`cd ${repositoryPath} && git add .`);
 };

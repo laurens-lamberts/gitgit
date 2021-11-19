@@ -1,18 +1,34 @@
-import { getBranches, getHistory } from '@domains/git/api';
+import { branchSwitch, getBranches, getHistory, push, commit } from '@domains/git/api';
 import { BranchRecord, HistoryRecord } from '@domains/git/types';
 import React, { useState } from 'react';
-import { Image, SafeAreaView, ScrollView, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
 
 export default function MainInterface() {
   const isDarkMode = useColorScheme() === 'dark';
+  const [syncing, setSyncing] = useState(false);
+  const [performingCommit, setPerformingCommit] = useState(false);
+  const [performingPush, setPerformingPush] = useState(false);
   const [historyRecords, setHistoryRecords] = useState<HistoryRecord[]>();
   const [localBranches, setLocalBranches] = useState<BranchRecord[]>();
   const [remoteBranches, setRemoteBranches] = useState<BranchRecord[]>();
+  const [commitMessage, setCommitMessage] = useState('');
 
   const syncGitStatus = async () => {
+    setSyncing(true);
     setHistoryRecords(await getHistory('LIMITED'));
     setLocalBranches(await getBranches());
     setRemoteBranches(await getBranches(true));
+    setSyncing(false);
   };
 
   return (
@@ -40,29 +56,56 @@ export default function MainInterface() {
             padding: 12,
             alignItems: 'center',
             width: 140,
+            height: 40,
           }}
           onPress={syncGitStatus}
         >
-          <Text>Sync</Text>
+          {syncing ? <ActivityIndicator color="white" /> : <Text>Sync</Text>}
         </TouchableOpacity>
       </View>
       <View style={{ flex: 1, flexDirection: 'row' }}>
-        <View style={{ flex: 1, backgroundColor: 'tomato', padding: 20 }}>
+        <View style={{ flex: 1, backgroundColor: 'tomato', paddingVertical: 20 }}>
           <ScrollView contentInsetAdjustmentBehavior="automatic">
-            <Text style={{ fontWeight: 'bold' }}>LOCAL</Text>
-            <View>
+            <Text style={{ fontWeight: 'bold', paddingHorizontal: 20, fontSize: 18, marginBottom: 8 }}>
+              LOCAL
+            </Text>
+            <View style={{ marginBottom: 20 }}>
               {localBranches?.map((b) => (
-                <Text key={b.name} style={{ marginBottom: 4, color: b.active ? 'purple' : 'white' }}>
-                  {b.name}
-                </Text>
+                <TouchableOpacity
+                  key={b.name}
+                  style={{
+                    paddingHorizontal: 20,
+                    paddingVertical: 8,
+                    backgroundColor: b.active ? 'green' : undefined,
+                  }}
+                  onPress={async () => {
+                    branchSwitch(b.name);
+                    setLocalBranches(await getBranches());
+                  }}
+                >
+                  <Text key={b.name}>{b.name}</Text>
+                </TouchableOpacity>
               ))}
             </View>
-            <Text style={{ fontWeight: 'bold' }}>REMOTE</Text>
+            <Text style={{ fontWeight: 'bold', paddingHorizontal: 20, fontSize: 18, marginBottom: 8 }}>
+              REMOTE
+            </Text>
             <View>
               {remoteBranches?.map((b) => (
-                <Text key={b.name} style={{ marginBottom: 4 }}>
-                  {b.name}
-                </Text>
+                <TouchableOpacity
+                  key={b.name}
+                  style={{
+                    paddingHorizontal: 20,
+                    paddingVertical: 8,
+                    backgroundColor: b.active ? 'green' : undefined,
+                  }}
+                  onPress={async () => {
+                    branchSwitch(b.name);
+                    setLocalBranches(await getBranches());
+                  }}
+                >
+                  <Text key={b.name}>{b.name}</Text>
+                </TouchableOpacity>
               ))}
             </View>
           </ScrollView>
@@ -77,7 +120,7 @@ export default function MainInterface() {
               <Text
                 key={r.commitId}
                 style={{
-                  marginBottom: 4,
+                  marginBottom: 16,
                 }}
               >
                 {r.commitMessage}
@@ -85,7 +128,58 @@ export default function MainInterface() {
             ))}
           </ScrollView>
         </View>
-        <View style={{ flex: 1, backgroundColor: 'red', padding: 20 }} />
+        <View style={{ flex: 1, backgroundColor: 'red' }}>
+          <View style={{ flex: 1, margin: 20, padding: 8, borderWidth: 2, borderRadius: 4 }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Unstaged</Text>
+          </View>
+          <View style={{ flex: 1, margin: 20, padding: 8, borderWidth: 2, borderRadius: 4 }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Staged</Text>
+          </View>
+          <View style={{ flex: 1, margin: 20, padding: 8, borderWidth: 2, borderRadius: 4 }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Commit</Text>
+            <TextInput
+              style={{ flex: 1, marginBottom: 8, borderWidth: 1, padding: 8 }}
+              selectionColor={'transparent'}
+              placeholder="Commit message"
+              placeholderTextColor="#777"
+              onChangeText={(text) => setCommitMessage(text)}
+              value={commitMessage}
+            />
+            <TouchableOpacity
+              style={{
+                backgroundColor: 'limegreen',
+                borderRadius: 4,
+                padding: 12,
+                alignItems: 'center',
+                width: '100%',
+                height: 40,
+                marginBottom: 8,
+              }}
+              onPress={async () => {
+                await commit(commitMessage);
+                alert('commit performed');
+              }}
+            >
+              {performingCommit ? <ActivityIndicator color="white" /> : <Text>Commit</Text>}
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: 'limegreen',
+                borderRadius: 4,
+                padding: 12,
+                alignItems: 'center',
+                width: '100%',
+                height: 40,
+              }}
+              onPress={async () => {
+                await push();
+                alert('pushed');
+              }}
+            >
+              {performingPush ? <ActivityIndicator color="white" /> : <Text>Push</Text>}
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
       <View style={{ paddingHorizontal: 20, paddingVertical: 4, alignItems: 'flex-end' }}>
         <Text>0.1</Text>
