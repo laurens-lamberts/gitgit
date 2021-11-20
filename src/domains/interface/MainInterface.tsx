@@ -8,9 +8,12 @@ import {
   getUnstaged,
   getStashList,
   getActiveRepository,
+  stageUndo,
+  stage,
+  stageAll,
 } from '@domains/git/api';
 import { BranchRecord, HistoryRecord, StashRecord } from '@domains/git/types';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -63,20 +66,24 @@ export default function MainInterface() {
 
   const [commitMessage, setCommitMessage] = useState('');
 
-  const syncGitStatus = async () => {
+  const syncStagedFiles = async () => {
+    setUnstagedFiles(await getUnstaged());
+    setStagedFiles(await getStaged());
+  };
+
+  const syncGitStatus = useCallback(async () => {
     setSyncing(true);
     setHistoryRecords(await getHistory('LIMITED'));
     setLocalBranches(await getBranches());
     setRemoteBranches(await getBranches(true));
-    setUnstagedFiles(await getUnstaged());
-    setStagedFiles(await getStaged());
     setStashes(await getStashList());
+    await syncStagedFiles();
     setSyncing(false);
-  };
+  }, []);
 
   useEffect(() => {
     syncGitStatus();
-  }, []);
+  }, [syncGitStatus]);
 
   return (
     <SafeAreaView
@@ -137,8 +144,8 @@ export default function MainInterface() {
                     backgroundColor: b.active ? theme.active : undefined,
                   }}
                   onPress={async () => {
-                    branchSwitch(b.name);
-                    setLocalBranches(await getBranches());
+                    await branchSwitch(b.name);
+                    syncGitStatus();
                   }}
                 >
                   <Text key={b.name}>{b.name}</Text>
@@ -158,8 +165,8 @@ export default function MainInterface() {
                     backgroundColor: b.active ? 'green' : undefined,
                   }}
                   onPress={async () => {
-                    branchSwitch(b.name);
-                    setLocalBranches(await getBranches());
+                    await branchSwitch(b.name);
+                    syncGitStatus();
                   }}
                 >
                   <Text>{b.name}</Text>
@@ -207,7 +214,27 @@ export default function MainInterface() {
           <View
             style={{ flex: 1, margin: 20, padding: 8, borderWidth: 2, borderRadius: 4, borderColor: 'white' }}
           >
-            <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Unstaged</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Unstaged</Text>
+              {(unstagedFiles?.length || 0) > 0 && (
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: theme.button.primary.background,
+                    borderRadius: 4,
+                    paddingHorizontal: 12,
+                    paddingVertical: 4,
+                    alignItems: 'center',
+                    marginBottom: 8,
+                  }}
+                  onPress={async () => {
+                    await stageAll();
+                    syncStagedFiles();
+                  }}
+                >
+                  <Text>Stage all</Text>
+                </TouchableOpacity>
+              )}
+            </View>
             {unstagedFiles?.map((name) => (
               <View
                 key={name}
@@ -231,7 +258,8 @@ export default function MainInterface() {
                     marginBottom: 8,
                   }}
                   onPress={async () => {
-                    //await commit(commitMessage);
+                    await stage(name);
+                    syncStagedFiles();
                   }}
                 >
                   <Text>Stage</Text>
@@ -266,7 +294,8 @@ export default function MainInterface() {
                     marginBottom: 8,
                   }}
                   onPress={async () => {
-                    //await commit(commitMessage);
+                    await stageUndo(name);
+                    syncStagedFiles();
                   }}
                 >
                   <Text>Unstage</Text>
