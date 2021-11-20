@@ -34,6 +34,11 @@ const theme = {
       text: 'white',
     },
   },
+  list: {
+    spacing: {
+      vertical: 4,
+    },
+  },
   active: '#666',
   footer: {
     background: '#000',
@@ -124,7 +129,7 @@ export default function MainInterface() {
           {syncing ? (
             <ActivityIndicator color={theme.button.primary.text} />
           ) : (
-            <Text style={{ color: theme.button.primary.text }}>Sync</Text>
+            <Text style={{ color: theme.button.primary.text }}>Sync git status</Text>
           )}
         </TouchableOpacity>
       </View>
@@ -140,7 +145,7 @@ export default function MainInterface() {
                   key={b.name}
                   style={{
                     paddingHorizontal: 20,
-                    paddingVertical: 8,
+                    paddingVertical: theme.list.spacing.vertical,
                     backgroundColor: b.active ? theme.active : undefined,
                   }}
                   onPress={async () => {
@@ -161,7 +166,7 @@ export default function MainInterface() {
                   key={b.name}
                   style={{
                     paddingHorizontal: 20,
-                    paddingVertical: 8,
+                    paddingVertical: theme.list.spacing.vertical,
                     backgroundColor: b.active ? 'green' : undefined,
                   }}
                   onPress={async () => {
@@ -182,7 +187,7 @@ export default function MainInterface() {
                   key={s.id}
                   style={{
                     paddingHorizontal: 20,
-                    paddingVertical: 8,
+                    paddingVertical: theme.list.spacing.vertical,
                   }}
                   onPress={async () => {}}
                 >
