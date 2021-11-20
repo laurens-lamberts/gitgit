@@ -9,3 +9,7 @@ export type BranchRecord = {
   name: string;
   active: boolean;
 };
+export type StashRecord = {
+  id: string;
+  name: string;
+};

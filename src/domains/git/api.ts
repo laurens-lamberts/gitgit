@@ -1,5 +1,5 @@
 import { NativeModules } from 'react-native';
-import { BranchRecord, GetHistoryType, HistoryRecord } from './types';
+import { BranchRecord, GetHistoryType, HistoryRecord, StashRecord } from './types';
 
 const repositoryPath = '~/ws/react-native/landal-park-app-v2';
 const { ShellTools } = NativeModules;
@@ -81,4 +81,27 @@ export const getBranches = async (remote?: boolean): Promise<BranchRecord[]> => 
       active,
     };
   });
+};
+
+export const stash = async () => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git stash`);
+};
+export const stashPop = async () => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git stash pop`);
+};
+export const stashApply = async () => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git stash apply`);
+};
+export const getStashList = async (): Promise<StashRecord[]> => {
+  const output: string = await ShellTools.executeCommand(`cd ${repositoryPath} && git stash list`);
+  return output.split('\n').map((l) => {
+    const endOfId = l.indexOf(' ');
+    return {
+      id: l.substring(0, endOfId - 1),
+      name: l.substring(endOfId + 1, l.length).trim(),
+    };
+  });
+};
+export const getActiveRepository = () => {
+  return repositoryPath;
 };
