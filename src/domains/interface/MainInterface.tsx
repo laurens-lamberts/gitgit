@@ -27,11 +27,16 @@ import {
 } from 'react-native';
 
 const theme = {
+  color: {
+    red: '#FF0000',
+    cyan: '#00FFFF',
+  },
   background: '#222',
   button: {
     primary: {
       background: '#666',
       text: 'white',
+      border: 'rgba(255,255,255,0.4)',
     },
   },
   list: {
@@ -118,11 +123,13 @@ export default function MainInterface() {
         <TouchableOpacity
           style={{
             backgroundColor: theme.button.primary.background,
+            borderColor: theme.button.primary.border,
+            borderWidth: 1,
             borderRadius: 4,
             padding: 12,
             alignItems: 'center',
             width: 140,
-            height: 40,
+            height: 42,
           }}
           onPress={syncGitStatus}
         >
@@ -225,6 +232,8 @@ export default function MainInterface() {
                 <TouchableOpacity
                   style={{
                     backgroundColor: theme.button.primary.background,
+                    borderColor: theme.button.primary.border,
+                    borderWidth: 1,
                     borderRadius: 4,
                     paddingHorizontal: 12,
                     paddingVertical: 4,
@@ -256,6 +265,8 @@ export default function MainInterface() {
                 <TouchableOpacity
                   style={{
                     backgroundColor: theme.button.primary.background,
+                    borderColor: theme.button.primary.border,
+                    borderWidth: 1,
                     borderRadius: 4,
                     paddingHorizontal: 12,
                     paddingVertical: 4,
@@ -267,7 +278,7 @@ export default function MainInterface() {
                     syncStagedFiles();
                   }}
                 >
-                  <Text>Stage</Text>
+                  <Text style={{ color: theme.button.primary.text }}>Stage</Text>
                 </TouchableOpacity>
               </View>
             ))}
@@ -292,6 +303,8 @@ export default function MainInterface() {
                 <TouchableOpacity
                   style={{
                     backgroundColor: theme.button.primary.background,
+                    borderColor: theme.button.primary.border,
+                    borderWidth: 1,
                     borderRadius: 4,
                     paddingHorizontal: 12,
                     paddingVertical: 4,
@@ -303,7 +316,7 @@ export default function MainInterface() {
                     syncStagedFiles();
                   }}
                 >
-                  <Text>Unstage</Text>
+                  <Text style={{ color: theme.button.primary.text }}>Unstage</Text>
                 </TouchableOpacity>
               </View>
             ))}
@@ -324,11 +337,13 @@ export default function MainInterface() {
               <TouchableOpacity
                 style={{
                   backgroundColor: theme.button.primary.background,
+                  borderColor: theme.button.primary.border,
+                  borderWidth: 1,
                   borderRadius: 4,
                   padding: 12,
                   alignItems: 'center',
                   flex: 1,
-                  height: 40,
+                  height: 42,
                   marginRight: 16,
                 }}
                 onPress={async () => {
@@ -345,11 +360,13 @@ export default function MainInterface() {
               <TouchableOpacity
                 style={{
                   backgroundColor: theme.button.primary.background,
+                  borderColor: theme.button.primary.border,
+                  borderWidth: 1,
                   borderRadius: 4,
                   padding: 12,
                   alignItems: 'center',
                   flex: 1,
-                  height: 40,
+                  height: 42,
                 }}
                 onPress={async () => {
                   await push();
