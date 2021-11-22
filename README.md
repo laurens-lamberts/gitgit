@@ -1,18 +1,25 @@
 <img src="./src/app/assets/images/gitgit-logo.png" width="180">
 
-<i>A react-native-macos Git GUI</i>
+<i>A react-native-macos and react-native-windows Git GUI</i>
 
 ## Features
 
 - ...
 
-## Requirements
+## Requirements MAC
 
-- mac
 - yarn (or npm)
 - node
 - xcode
 - cocoapods
+
+## Requirements Windows
+
+- windows 10 or higher
+- yarn (or npm)
+- node
+- visual studio
+- <a href="https://microsoft.github.io/react-native-windows/docs/rnw-dependencies">development dependencies</a>
 
 ## Getting started
 
