@@ -4,9 +4,18 @@
 
 ## Features
 
-- ...
+- GUI for basic git actions and git history
+- commands: checkout, stage, unstage, push
 
-## Getting started MAC
+### To do
+
+- commands: branch, pull, fetch, ... (many more)
+- Visual presentation of code changes
+- Visual tree-presentation of git history
+- Code compare tool + hunk staging
+- Windows implementation of ShellTools
+
+## Getting started Mac
 
 ### Requirements
 
