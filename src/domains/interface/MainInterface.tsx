@@ -116,7 +116,7 @@ export default function MainInterface() {
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Image
             source={require('@app/assets/images/gitgit-logo.png')}
-            style={{ height: 50, width: 87, marginRight: 20 }}
+            style={{ height: 40, width: 70, marginRight: 20 }}
           />
           <Text>{getActiveRepository()}</Text>
         </View>
@@ -222,9 +222,16 @@ export default function MainInterface() {
             ))}
           </ScrollView>
         </View>
-        <View style={{ flex: 1, backgroundColor: theme.sidebarRight.background }}>
+        <View style={{ flex: 1, backgroundColor: theme.sidebarRight.background, padding: 20 }}>
           <View
-            style={{ flex: 1, margin: 20, padding: 8, borderWidth: 2, borderRadius: 4, borderColor: 'white' }}
+            style={{
+              flex: 1,
+              marginBottom: 20,
+              padding: 8,
+              borderWidth: 2,
+              borderRadius: 4,
+              borderColor: 'white',
+            }}
           >
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Unstaged</Text>
@@ -284,7 +291,14 @@ export default function MainInterface() {
             ))}
           </View>
           <View
-            style={{ flex: 1, margin: 20, padding: 8, borderWidth: 2, borderRadius: 4, borderColor: 'white' }}
+            style={{
+              flex: 1,
+              marginBottom: 20,
+              padding: 8,
+              borderWidth: 2,
+              borderRadius: 4,
+              borderColor: 'white',
+            }}
           >
             <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Staged</Text>
             {stagedFiles?.map((name) => (
@@ -322,7 +336,13 @@ export default function MainInterface() {
             ))}
           </View>
           <View
-            style={{ flex: 1, margin: 20, padding: 8, borderWidth: 2, borderRadius: 4, borderColor: 'white' }}
+            style={{
+              flex: 1,
+              padding: 8,
+              borderWidth: 2,
+              borderRadius: 4,
+              borderColor: 'white',
+            }}
           >
             <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Commit</Text>
             <TextInput
