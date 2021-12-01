@@ -33,6 +33,10 @@ const theme = {
   center: {
     background: '#222',
   },
+  logo: {
+    primary: '#ffd200',
+    secondary: '#666',
+  },
 };
 
 export default function useTheme() {

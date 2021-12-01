@@ -687,7 +687,7 @@
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="gitgit" allowsToolTipsWhenApplicationIsInactive="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
-                        <rect key="contentRect" x="491" y="251" width="1200" height="600"/>
+                        <rect key="contentRect" x="491" y="251" width="1200" height="700"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="900" height="600"/>
                         <connections>
@@ -707,7 +707,7 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="1200" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1200" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </view>
                 </viewController>

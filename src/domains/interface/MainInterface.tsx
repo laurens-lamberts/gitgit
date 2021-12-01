@@ -50,8 +50,8 @@ export default function MainInterface() {
     >
       <Header syncGitStatus={syncGitStatus} syncing={syncing} />
       <View style={{ flex: 1, flexDirection: 'row' }}>
-        <View style={{ flex: 1, backgroundColor: theme.sidebarLeft.background, paddingVertical: 20 }}>
-          <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <View style={{ flex: 1, backgroundColor: theme.sidebarLeft.background }}>
+          <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>
             <Branches
               syncGitStatus={syncGitStatus}
               localBranches={localBranches}
