@@ -49,7 +49,7 @@ export default function Commit({}: Props) {
           {performingCommit ? (
             <ActivityIndicator color={theme.button.primary.text} />
           ) : (
-            <Button.Text style={{ color: theme.button.primary.text }}>Commit</Button.Text>
+            <Button.Text>Commit</Button.Text>
           )}
         </Button>
         <Button
@@ -65,7 +65,7 @@ export default function Commit({}: Props) {
           {performingPush ? (
             <ActivityIndicator color={theme.button.primary.text} />
           ) : (
-            <Button.Text style={{ color: theme.button.primary.text }}>Push</Button.Text>
+            <Button.Text>Push</Button.Text>
           )}
         </Button>
       </View>

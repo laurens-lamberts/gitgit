@@ -1,7 +1,7 @@
 import Button from '@app/components/base/Button';
 import Text from '@app/components/base/Text';
 import Logo from '@app/components/Logo';
-import { getActiveRepository } from '@domains/git/api';
+import { getActiveRepository, stash, stashPop } from '@domains/git/api';
 import React from 'react';
 import { ActivityIndicator, Image, View } from 'react-native';
 import useTheme from '../hooks/useTheme';
@@ -27,26 +27,72 @@ export default function Header({ syncGitStatus, syncing }: Props) {
         backgroundColor: theme.header.background,
       }}
     >
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
         <Logo width={70} height={40} style={{ marginRight: 8 }} />
         <Text>{getActiveRepository()}</Text>
       </View>
-      <Button
-        style={{
-          height: 42,
-        }}
-        onPress={syncGitStatus}
-      >
-        {syncing ? (
-          <ActivityIndicator color={theme.button.primary.text} />
-        ) : (
-          <Button.Text
-            style={{ color: theme.button.primary.text, fontWeight: 'bold', textTransform: 'uppercase' }}
-          >
-            Sync git status
-          </Button.Text>
-        )}
-      </Button>
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+        <Button
+          style={{
+            height: 42,
+            width: 82,
+            marginRight: 8,
+          }}
+        >
+          <Button.Text>Pull</Button.Text>
+        </Button>
+        <Button
+          style={{
+            height: 42,
+            width: 82,
+            marginRight: 8,
+          }}
+        >
+          <Button.Text>Branch</Button.Text>
+        </Button>
+        <Button
+          style={{
+            height: 42,
+            width: 82,
+            marginRight: 8,
+          }}
+          onPress={() => {
+            stash();
+            syncGitStatus();
+          }}
+        >
+          <Button.Text>Stash</Button.Text>
+        </Button>
+        <Button
+          style={{
+            height: 42,
+            width: 82,
+          }}
+          onPress={() => {
+            stashPop();
+            syncGitStatus();
+          }}
+        >
+          <Button.Text>Pop</Button.Text>
+        </Button>
+      </View>
+      <View style={{ flex: 1 }}>
+        <Button
+          style={{
+            height: 42,
+            alignSelf: 'flex-end',
+          }}
+          onPress={syncGitStatus}
+        >
+          {syncing ? (
+            <ActivityIndicator color={theme.button.primary.text} />
+          ) : (
+            <Button.Text style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>
+              Sync git status
+            </Button.Text>
+          )}
+        </Button>
+      </View>
     </View>
   );
 }

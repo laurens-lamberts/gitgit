@@ -13,7 +13,7 @@ interface Props {
 
 export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }: Props) {
   const theme = useTheme();
-
+  const contextMenu = [{ key: 'foo', title: 'Foo' }, { isSeparator: true }, { key: 'bar', title: 'Bar' }];
   return (
     <>
       <View
@@ -38,7 +38,7 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
                 syncStagedFiles();
               }}
             >
-              <Button.Text style={{ color: theme.button.primary.text }}>Stage all</Button.Text>
+              <Button.Text>Stage all</Button.Text>
             </Button>
           )}
         </View>
@@ -46,6 +46,10 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
           <View
             key={name}
             style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+            contextMenu={contextMenu}
+            onContextMenuItemClick={(event) => {
+              alert('click');
+            }}
           >
             <Text
               style={{
@@ -64,7 +68,7 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
                 syncStagedFiles();
               }}
             >
-              <Button.Text style={{ color: theme.button.primary.text }}>Stage</Button.Text>
+              <Button.Text>Stage</Button.Text>
             </Button>
           </View>
         ))}
@@ -102,7 +106,7 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
                 syncStagedFiles();
               }}
             >
-              <Text style={{ color: theme.button.primary.text }}>Unstage</Text>
+              <Text>Unstage</Text>
             </Button>
           </View>
         ))}
