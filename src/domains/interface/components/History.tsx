@@ -1,6 +1,6 @@
+import Text from '@app/components/base/Text';
 import { HistoryRecord } from '@domains/git/types';
 import React from 'react';
-import { Text } from 'react-native';
 import useTheme from '../hooks/useTheme';
 
 interface Props {

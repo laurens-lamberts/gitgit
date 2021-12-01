@@ -1,6 +1,8 @@
+import Button from '@app/components/base/Button';
+import Text from '@app/components/base/Text';
 import { getActiveRepository } from '@domains/git/api';
 import React from 'react';
-import { ActivityIndicator, Image, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, View } from 'react-native';
 import useTheme from '../hooks/useTheme';
 
 interface Props {
@@ -30,15 +32,8 @@ export default function Header({ syncGitStatus, syncing }: Props) {
         />
         <Text>{getActiveRepository()}</Text>
       </View>
-      <TouchableOpacity
+      <Button
         style={{
-          backgroundColor: theme.button.primary.background,
-          borderColor: theme.button.primary.border,
-          borderWidth: 1,
-          borderRadius: 4,
-          padding: 12,
-          alignItems: 'center',
-          width: 140,
           height: 42,
         }}
         onPress={syncGitStatus}
@@ -46,9 +41,11 @@ export default function Header({ syncGitStatus, syncing }: Props) {
         {syncing ? (
           <ActivityIndicator color={theme.button.primary.text} />
         ) : (
-          <Text style={{ color: theme.button.primary.text }}>Sync git status</Text>
+          <Text style={{ color: theme.button.primary.text, fontWeight: 'bold', textTransform: 'uppercase' }}>
+            Sync git status
+          </Text>
         )}
-      </TouchableOpacity>
+      </Button>
     </View>
   );
 }

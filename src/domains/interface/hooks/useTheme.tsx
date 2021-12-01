@@ -6,8 +6,8 @@ const theme = {
   background: '#222',
   button: {
     primary: {
-      background: '#666',
-      text: 'white',
+      background: '#ffd200',
+      text: 'black',
       border: 'rgba(255,255,255,0.4)',
     },
   },
@@ -16,7 +16,8 @@ const theme = {
       vertical: 4,
     },
   },
-  active: '#666',
+  active: '#ffd200',
+  activeText: 'black',
   footer: {
     background: '#000',
   },

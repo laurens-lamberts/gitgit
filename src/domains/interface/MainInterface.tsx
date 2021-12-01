@@ -1,7 +1,8 @@
+import Text from '@app/components/base/Text';
 import { getBranches, getHistory, getStaged, getUnstaged, getStashList } from '@domains/git/api';
 import { BranchRecord, HistoryRecord, StashRecord } from '@domains/git/types';
 import React, { useCallback, useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, Text, useColorScheme, View } from 'react-native';
+import { SafeAreaView, ScrollView, useColorScheme, View } from 'react-native';
 import Branches from './components/Branches';
 import Commit from './components/Commit';
 import Header from './components/Header';

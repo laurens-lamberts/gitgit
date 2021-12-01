@@ -1,6 +1,8 @@
+import Button from '@app/components/base/Button';
+import Text from '@app/components/base/Text';
 import { stageUndo, stage, stageAll } from '@domains/git/api';
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import useTheme from '../hooks/useTheme';
 
 interface Props {
@@ -27,15 +29,8 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Unstaged</Text>
           {(unstagedFiles?.length || 0) > 0 && (
-            <TouchableOpacity
+            <Button
               style={{
-                backgroundColor: theme.button.primary.background,
-                borderColor: theme.button.primary.border,
-                borderWidth: 1,
-                borderRadius: 4,
-                paddingHorizontal: 12,
-                paddingVertical: 4,
-                alignItems: 'center',
                 marginBottom: 8,
               }}
               onPress={async () => {
@@ -43,8 +38,8 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
                 syncStagedFiles();
               }}
             >
-              <Text>Stage all</Text>
-            </TouchableOpacity>
+              <Text style={{ color: theme.button.primary.text }}>Stage all</Text>
+            </Button>
           )}
         </View>
         {unstagedFiles?.map((name) => (
@@ -60,15 +55,8 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
             >
               {name}
             </Text>
-            <TouchableOpacity
+            <Button
               style={{
-                backgroundColor: theme.button.primary.background,
-                borderColor: theme.button.primary.border,
-                borderWidth: 1,
-                borderRadius: 4,
-                paddingHorizontal: 12,
-                paddingVertical: 4,
-                alignItems: 'center',
                 marginBottom: 8,
               }}
               onPress={async () => {
@@ -77,7 +65,7 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
               }}
             >
               <Text style={{ color: theme.button.primary.text }}>Stage</Text>
-            </TouchableOpacity>
+            </Button>
           </View>
         ))}
       </View>
@@ -105,15 +93,8 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
             >
               {name}
             </Text>
-            <TouchableOpacity
+            <Button
               style={{
-                backgroundColor: theme.button.primary.background,
-                borderColor: theme.button.primary.border,
-                borderWidth: 1,
-                borderRadius: 4,
-                paddingHorizontal: 12,
-                paddingVertical: 4,
-                alignItems: 'center',
                 marginBottom: 8,
               }}
               onPress={async () => {
@@ -122,7 +103,7 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
               }}
             >
               <Text style={{ color: theme.button.primary.text }}>Unstage</Text>
-            </TouchableOpacity>
+            </Button>
           </View>
         ))}
       </View>

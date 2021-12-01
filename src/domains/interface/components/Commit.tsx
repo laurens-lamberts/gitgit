@@ -1,6 +1,8 @@
+import Button from '@app/components/base/Button';
+import Text from '@app/components/base/Text';
 import { push, commit } from '@domains/git/api';
 import React, { useState } from 'react';
-import { ActivityIndicator, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, TextInput, View } from 'react-native';
 import useTheme from '../hooks/useTheme';
 
 interface Props {}
@@ -31,14 +33,8 @@ export default function Commit({}: Props) {
         value={commitMessage}
       />
       <View style={{ flexDirection: 'row' }}>
-        <TouchableOpacity
+        <Button
           style={{
-            backgroundColor: theme.button.primary.background,
-            borderColor: theme.button.primary.border,
-            borderWidth: 1,
-            borderRadius: 4,
-            padding: 12,
-            alignItems: 'center',
             flex: 1,
             height: 42,
             marginRight: 16,
@@ -55,15 +51,9 @@ export default function Commit({}: Props) {
           ) : (
             <Text style={{ color: theme.button.primary.text }}>Commit</Text>
           )}
-        </TouchableOpacity>
-        <TouchableOpacity
+        </Button>
+        <Button
           style={{
-            backgroundColor: theme.button.primary.background,
-            borderColor: theme.button.primary.border,
-            borderWidth: 1,
-            borderRadius: 4,
-            padding: 12,
-            alignItems: 'center',
             flex: 1,
             height: 42,
           }}
@@ -77,7 +67,7 @@ export default function Commit({}: Props) {
           ) : (
             <Text style={{ color: theme.button.primary.text }}>Push</Text>
           )}
-        </TouchableOpacity>
+        </Button>
       </View>
     </View>
   );

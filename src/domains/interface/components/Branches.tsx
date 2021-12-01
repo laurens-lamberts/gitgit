@@ -1,7 +1,8 @@
+import Text from '@app/components/base/Text';
 import { branchSwitch } from '@domains/git/api';
 import { BranchRecord, StashRecord } from '@domains/git/types';
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import useTheme from '../hooks/useTheme';
 
 interface Props {
@@ -31,7 +32,14 @@ export default function Branches({ syncGitStatus, localBranches, remoteBranches,
               syncGitStatus();
             }}
           >
-            <Text key={b.name}>{b.name}</Text>
+            <Text
+              style={{
+                color: b.active ? theme.activeText : 'white',
+                fontWeight: b.active ? 'bold' : undefined,
+              }}
+            >
+              {b.name}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -50,7 +58,7 @@ export default function Branches({ syncGitStatus, localBranches, remoteBranches,
               syncGitStatus();
             }}
           >
-            <Text>{b.name}</Text>
+            <Text style={{ color: b.active ? theme.activeText : 'white' }}>{b.name}</Text>
           </TouchableOpacity>
         ))}
       </View>
