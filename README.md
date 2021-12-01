@@ -1,21 +1,24 @@
 <img src="./src/app/assets/images/gitgit-logo.png" width="180">
-
+<br/>
 <i>A react-native-macos and react-native-windows Git GUI</i>
+<br/><br/>
 
-## Features
+# Features
 
 - GUI for basic git actions and git history
-- commands: checkout, stage, unstage, push
+- commands: <code>checkout, stage, unstage, commit, push</code>
 
 ### To do
 
-- commands: branch, pull, fetch, ... (many more)
+- commands: <code>branch, pull, fetch</code>, ... (many more)
 - Visual presentation of code changes
 - Visual tree-presentation of git history
 - Code compare tool + hunk staging
 - Windows implementation of ShellTools
 
-## Getting started Mac
+<br/>
+
+# Getting started Mac
 
 ### Requirements
 
@@ -30,7 +33,7 @@
 - `npx pod install --project-directory=macos`
 - `yarn macos`
 
-## Getting started Windows
+# Getting started Windows <sup>(coming soon)</sup>
 
 ### Requirements
 
