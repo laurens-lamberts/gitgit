@@ -1,5 +1,6 @@
 import Button from '@app/components/base/Button';
 import Text from '@app/components/base/Text';
+import Logo from '@app/components/Logo';
 import { getActiveRepository } from '@domains/git/api';
 import React from 'react';
 import { ActivityIndicator, Image, View } from 'react-native';
@@ -27,10 +28,7 @@ export default function Header({ syncGitStatus, syncing }: Props) {
       }}
     >
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image
-          source={require('@app/assets/images/gitgit-logo.png')}
-          style={{ height: 40, width: 70, marginRight: 20 }}
-        />
+        <Logo width={70} height={40} style={{ marginRight: 8 }} />
         <Text>{getActiveRepository()}</Text>
       </View>
       <Button
