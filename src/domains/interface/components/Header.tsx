@@ -1,7 +1,7 @@
 import Button from '@app/components/base/Button';
 import Text from '@app/components/base/Text';
 import Logo from '@app/components/Logo';
-import { getActiveRepository, stash, stashPop } from '@domains/git/api';
+import { getActiveRepository, pull, stash, stashPop } from '@domains/git/api';
 import React from 'react';
 import { ActivityIndicator, Image, View } from 'react-native';
 import useTheme from '../hooks/useTheme';
@@ -37,6 +37,10 @@ export default function Header({ syncGitStatus, syncing }: Props) {
             height: 42,
             width: 82,
             marginRight: 8,
+          }}
+          onPress={() => {
+            pull();
+            syncGitStatus();
           }}
         >
           <Button.Text>Pull</Button.Text>
@@ -80,6 +84,7 @@ export default function Header({ syncGitStatus, syncing }: Props) {
         <Button
           style={{
             height: 42,
+            width: 160,
             alignSelf: 'flex-end',
           }}
           onPress={syncGitStatus}
