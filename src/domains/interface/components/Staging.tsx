@@ -38,7 +38,7 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
                 syncStagedFiles();
               }}
             >
-              <Text style={{ color: theme.button.primary.text }}>Stage all</Text>
+              <Button.Text style={{ color: theme.button.primary.text }}>Stage all</Button.Text>
             </Button>
           )}
         </View>
@@ -64,7 +64,7 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
                 syncStagedFiles();
               }}
             >
-              <Text style={{ color: theme.button.primary.text }}>Stage</Text>
+              <Button.Text style={{ color: theme.button.primary.text }}>Stage</Button.Text>
             </Button>
           </View>
         ))}

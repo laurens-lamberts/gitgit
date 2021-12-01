@@ -16,9 +16,10 @@ export default function Header({ syncGitStatus, syncing }: Props) {
   return (
     <View
       style={{
-        height: 80,
+        height: 100,
         width: '100%',
         padding: 20,
+        paddingTop: 40,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -41,9 +42,11 @@ export default function Header({ syncGitStatus, syncing }: Props) {
         {syncing ? (
           <ActivityIndicator color={theme.button.primary.text} />
         ) : (
-          <Text style={{ color: theme.button.primary.text, fontWeight: 'bold', textTransform: 'uppercase' }}>
+          <Button.Text
+            style={{ color: theme.button.primary.text, fontWeight: 'bold', textTransform: 'uppercase' }}
+          >
             Sync git status
-          </Text>
+          </Button.Text>
         )}
       </Button>
     </View>
