@@ -1,5 +1,5 @@
 import Text from '@app/components/base/Text';
-import { branchSwitch } from '@domains/git/api';
+import { branchSwitch, stash, stashPop } from '@domains/git/api';
 import { BranchRecord, StashRecord } from '@domains/git/types';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
@@ -10,10 +10,27 @@ interface Props {
   localBranches?: BranchRecord[];
   remoteBranches?: BranchRecord[];
   stashes?: StashRecord[];
+  filesModified: boolean;
 }
 
-export default function Branches({ syncGitStatus, localBranches, remoteBranches, stashes }: Props) {
+export default function Branches({
+  syncGitStatus,
+  localBranches,
+  remoteBranches,
+  stashes,
+  filesModified,
+}: Props) {
   const theme = useTheme();
+
+  const validateAndSwitchBranch = async (name: string) => {
+    if (filesModified) {
+      stash();
+    }
+    await branchSwitch(name);
+    if (filesModified) {
+      stashPop();
+    }
+  };
 
   return (
     <>
@@ -28,7 +45,7 @@ export default function Branches({ syncGitStatus, localBranches, remoteBranches,
               backgroundColor: b.active ? theme.active : undefined,
             }}
             onPress={async () => {
-              await branchSwitch(b.name);
+              await validateAndSwitchBranch(b.name);
               syncGitStatus();
             }}
           >
@@ -54,7 +71,7 @@ export default function Branches({ syncGitStatus, localBranches, remoteBranches,
               backgroundColor: b.active ? 'green' : undefined,
             }}
             onPress={async () => {
-              await branchSwitch(b.name);
+              await validateAndSwitchBranch(b.name);
               syncGitStatus();
             }}
           >

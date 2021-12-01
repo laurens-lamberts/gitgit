@@ -57,6 +57,7 @@ export default function MainInterface() {
               localBranches={localBranches}
               remoteBranches={remoteBranches}
               stashes={stashes}
+              filesModified={(unstagedFiles?.length || 0) + (stagedFiles?.length || 0) > 0}
             />
           </ScrollView>
         </View>
