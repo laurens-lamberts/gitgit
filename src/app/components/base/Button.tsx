@@ -31,7 +31,18 @@ export default function Button({ children, style, ...props }: TouchableOpacityPr
 function ButtonText({ children, style, ...props }: TextProps) {
   const theme = useTheme();
   return (
-    <Text style={[{ textAlign: 'center', color: theme.button.primary.text }, style]} {...props}>
+    <Text
+      style={[
+        {
+          textAlign: 'center',
+          color: theme.button.primary.text,
+          textTransform: 'uppercase',
+          fontWeight: 'bold',
+        },
+        style,
+      ]}
+      {...props}
+    >
       {children}
     </Text>
   );

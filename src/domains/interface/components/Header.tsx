@@ -1,9 +1,10 @@
 import Button from '@app/components/base/Button';
+import Icon from '@app/components/base/Icon';
 import Text from '@app/components/base/Text';
 import Logo from '@app/components/Logo';
 import { getActiveRepository, pull, stash, stashPop } from '@domains/git/api';
 import React from 'react';
-import { ActivityIndicator, Image, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import useTheme from '../hooks/useTheme';
 
 interface Props {
@@ -28,55 +29,63 @@ export default function Header({ syncGitStatus, syncing }: Props) {
       }}
     >
       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-        <Logo width={70} height={40} style={{ marginRight: 8 }} />
+        <Logo width={70} height={40} style={{ marginRight: 16 }} />
         <Text>{getActiveRepository()}</Text>
       </View>
       <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
         <Button
           style={{
             height: 42,
-            width: 82,
+            width: 112,
             marginRight: 8,
+            flexDirection: 'row',
           }}
           onPress={() => {
             pull();
             syncGitStatus();
           }}
         >
+          <Icon name="download-outline" style={{ marginRight: 8 }} />
           <Button.Text>Pull</Button.Text>
         </Button>
         <Button
           style={{
             height: 42,
-            width: 82,
+            width: 112,
             marginRight: 8,
+            flexDirection: 'row',
           }}
         >
+          <Icon name="source-branch" style={{ marginRight: 8 }} />
           <Button.Text>Branch</Button.Text>
         </Button>
         <Button
           style={{
             height: 42,
-            width: 82,
+            width: 112,
             marginRight: 8,
+            flexDirection: 'row',
           }}
           onPress={() => {
             stash();
             syncGitStatus();
           }}
         >
+          <Icon name="briefcase-download-outline" style={{ marginRight: 8 }} />
           <Button.Text>Stash</Button.Text>
         </Button>
         <Button
           style={{
             height: 42,
-            width: 82,
+            width: 112,
+            flexDirection: 'row',
           }}
           onPress={() => {
             stashPop();
             syncGitStatus();
           }}
         >
+          <Icon name="briefcase-upload-outline" style={{ marginRight: 8 }} />
           <Button.Text>Pop</Button.Text>
         </Button>
       </View>
