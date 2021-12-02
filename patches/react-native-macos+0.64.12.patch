@@ -1,0 +1,81 @@
+diff --git a/node_modules/react-native-macos/React/Views/RCTView.h b/node_modules/react-native-macos/React/Views/RCTView.h
+index 20cbdfd..e444803 100644
+--- a/node_modules/react-native-macos/React/Views/RCTView.h
++++ b/node_modules/react-native-macos/React/Views/RCTView.h
+@@ -143,6 +143,8 @@ extern const UIAccessibilityTraits SwitchAccessibilityTrait;
+ @property (nonatomic, copy) NSArray<NSString*> *validKeysUp;
+ #endif // ]TODO(macOS GH#774)
+ 
++@property (nonatomic, copy) RCTDirectEventBlock onContextMenuItemClick;
++
+ /**
+  * Common Focus Properties
+  */
+diff --git a/node_modules/react-native-macos/React/Views/RCTView.m b/node_modules/react-native-macos/React/Views/RCTView.m
+index 2d74542..0f3530e 100644
+--- a/node_modules/react-native-macos/React/Views/RCTView.m
++++ b/node_modules/react-native-macos/React/Views/RCTView.m
+@@ -1285,6 +1285,16 @@ - (void)updateClippingForLayer:(CALayer *)layer
+   layer.mask = mask;
+ }
+ 
++- (void)contextMenuItemClicked:(NSMenuItem *)sender
++{
++  NSDictionary *menuItem = (NSDictionary *)sender.representedObject;
++  if (_onContextMenuItemClick) {
++    _onContextMenuItemClick(@{@"menuItem": menuItem});
++  } else {
++    RCTLogWarn(@"Set onContextMenuItemClick to handle this event");
++  }
++}
++
+ #pragma mark Border Color
+ 
+ #define setBorderColor(side)                                \
+diff --git a/node_modules/react-native-macos/React/Views/RCTViewManager.m b/node_modules/react-native-macos/React/Views/RCTViewManager.m
+index 223d8e3..ba834e9 100644
+--- a/node_modules/react-native-macos/React/Views/RCTViewManager.m
++++ b/node_modules/react-native-macos/React/Views/RCTViewManager.m
+@@ -409,6 +409,35 @@ - (RCTShadowView *)shadowView
+ 
+ #endif // ]TODO(macOS GH#774)
+ 
++RCT_EXPORT_VIEW_PROPERTY(onContextMenuItemClick, RCTDirectEventBlock)
++RCT_CUSTOM_VIEW_PROPERTY(contextMenu, NSArray*<NSDictionary *>, __unused RCTView)
++{
++  if ([view respondsToSelector:@selector(setMenu:)] && json) {
++    NSArray *menuList = [RCTConvert NSArray:json];
++    if (menuList.count > 0) {
++      NSMenu *menu = [[NSMenu alloc] init];
++      for (NSUInteger i = 0; i < menuList.count; i++)
++      {
++        if (menuList[i][@"isSeparator"]) {
++          [menu addItem:[NSMenuItem separatorItem]];
++        } else {
++          NSMenuItem *menuItem = [[NSMenuItem alloc] init];
++          [menuItem setTarget:view];
++          [menuItem setAction:@selector(contextMenuItemClicked:)];
++          if (menuList[i][@"key"]) {
++            [menuItem setKeyEquivalent:menuList[i][@"key"]];
++          }
++
++          [menuItem setRepresentedObject:menuList[i]];
++          menuItem.title = menuList[i][@"title"];
++          [menu addItem:menuItem];
++        }
++      }
++      [view setMenu:menu];
++    }
++  }
++}
++
+ #define RCT_VIEW_BORDER_PROPERTY(SIDE)                                                               \
+   RCT_CUSTOM_VIEW_PROPERTY(border##SIDE##Width, float, RCTView)                                      \
+   {                                                                                                  \
+diff --git a/node_modules/react-native-macos/scripts/.packager.env b/node_modules/react-native-macos/scripts/.packager.env
+new file mode 100644
+index 0000000..361f5fb
+--- /dev/null
++++ b/node_modules/react-native-macos/scripts/.packager.env
+@@ -0,0 +1 @@
++export RCT_METRO_PORT=8081
