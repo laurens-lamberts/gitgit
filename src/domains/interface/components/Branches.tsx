@@ -6,6 +6,8 @@ import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import useTheme from '../hooks/useTheme';
 
+const ICON_SIZE = 12;
+
 interface Props {
   syncGitStatus: () => void;
   localBranches?: BranchRecord[];
@@ -55,7 +57,7 @@ export default function Branches({
             <Icon
               name="source-branch"
               style={{ marginRight: 8 }}
-              size={10}
+              size={ICON_SIZE}
               color={b.active ? theme.activeText : 'white'}
             />
             <Text
@@ -89,7 +91,7 @@ export default function Branches({
             <Icon
               name="source-branch"
               style={{ marginRight: 8 }}
-              size={10}
+              size={ICON_SIZE}
               color={b.active ? theme.activeText : 'white'}
             />
             <Text style={{ color: b.active ? theme.activeText : 'white' }}>{b.name}</Text>
@@ -111,7 +113,7 @@ export default function Branches({
             }}
             onPress={async () => {}}
           >
-            <Icon name="briefcase-outline" style={{ marginRight: 8 }} size={10} color={'white'} />
+            <Icon name="briefcase-outline" style={{ marginRight: 8 }} size={ICON_SIZE} color={'white'} />
             <Text>{s.name}</Text>
           </TouchableOpacity>
         ))}
