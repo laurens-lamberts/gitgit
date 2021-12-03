@@ -36,7 +36,6 @@ export default function Header({ syncGitStatus, syncing }: Props) {
         <Button
           style={{
             height: 42,
-            width: 112,
             marginRight: 8,
           }}
           onPress={() => {
@@ -51,7 +50,6 @@ export default function Header({ syncGitStatus, syncing }: Props) {
         <Button
           style={{
             height: 42,
-            width: 112,
             marginRight: 8,
           }}
           is3D
@@ -62,7 +60,6 @@ export default function Header({ syncGitStatus, syncing }: Props) {
         <Button
           style={{
             height: 42,
-            width: 112,
             marginRight: 8,
           }}
           onPress={() => {
@@ -77,7 +74,6 @@ export default function Header({ syncGitStatus, syncing }: Props) {
         <Button
           style={{
             height: 42,
-            width: 112,
           }}
           onPress={() => {
             stashPop();
@@ -93,19 +89,13 @@ export default function Header({ syncGitStatus, syncing }: Props) {
         <Button
           style={{
             height: 42,
-            width: 160,
+            width: 54,
             alignSelf: 'flex-end',
           }}
           onPress={syncGitStatus}
           is3D
         >
-          {syncing ? (
-            <ActivityIndicator color={theme.button.primary.text} />
-          ) : (
-            <Button.Text style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>
-              Sync git status
-            </Button.Text>
-          )}
+          {syncing ? <ActivityIndicator color={theme.button.primary.text} /> : <Icon name="sync" />}
         </Button>
       </View>
     </View>

@@ -25,10 +25,16 @@ export default function Commit({}: Props) {
     >
       <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16 }}>Commit</Text>
       <TextInput
-        style={{ flex: 1, marginBottom: 12, borderWidth: 1, padding: 8 }}
+        style={{
+          flex: 1,
+          marginBottom: 12,
+          borderWidth: 1,
+          padding: 8,
+          fontSize: 18,
+        }}
         selectionColor={'transparent'}
-        placeholder="Commit message"
-        placeholderTextColor="#fff"
+        placeholder="Commit message..."
+        placeholderTextColor="#A9A9A9"
         onChangeText={(text) => setCommitMessage(text)}
         value={commitMessage}
       />
