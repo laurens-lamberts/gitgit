@@ -1,3 +1,4 @@
+import Icon from '@app/components/base/Icon';
 import Text from '@app/components/base/Text';
 import { branchSwitch, stash, stashPop } from '@domains/git/api';
 import { BranchRecord, StashRecord } from '@domains/git/types';
@@ -43,12 +44,20 @@ export default function Branches({
               paddingHorizontal: 20,
               paddingVertical: theme.list.spacing.vertical,
               backgroundColor: b.active ? theme.active : undefined,
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
             onPress={async () => {
               await validateAndSwitchBranch(b.name);
               syncGitStatus();
             }}
           >
+            <Icon
+              name="source-branch"
+              style={{ marginRight: 8 }}
+              size={10}
+              color={b.active ? theme.activeText : 'white'}
+            />
             <Text
               style={{
                 color: b.active ? theme.activeText : 'white',
@@ -69,12 +78,20 @@ export default function Branches({
               paddingHorizontal: 20,
               paddingVertical: theme.list.spacing.vertical,
               backgroundColor: b.active ? 'green' : undefined,
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
             onPress={async () => {
               await validateAndSwitchBranch(b.name);
               syncGitStatus();
             }}
           >
+            <Icon
+              name="source-branch"
+              style={{ marginRight: 8 }}
+              size={10}
+              color={b.active ? theme.activeText : 'white'}
+            />
             <Text style={{ color: b.active ? theme.activeText : 'white' }}>{b.name}</Text>
           </TouchableOpacity>
         ))}
@@ -89,9 +106,12 @@ export default function Branches({
             style={{
               paddingHorizontal: 20,
               paddingVertical: theme.list.spacing.vertical,
+              flexDirection: 'row',
+              alignItems: 'center',
             }}
             onPress={async () => {}}
           >
+            <Icon name="briefcase-outline" style={{ marginRight: 8 }} size={10} color={'white'} />
             <Text>{s.name}</Text>
           </TouchableOpacity>
         ))}
