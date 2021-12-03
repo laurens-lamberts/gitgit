@@ -70,7 +70,7 @@ export default function Branches({
         ))}
       </View>
       <Text style={{ fontWeight: 'bold', paddingHorizontal: 20, fontSize: 18, marginBottom: 8 }}>REMOTE</Text>
-      <View>
+      <View style={{ marginBottom: 20 }}>
         {remoteBranches?.map((b) => (
           <TouchableOpacity
             key={b.name}

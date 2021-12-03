@@ -74,13 +74,16 @@ export const getBranches = async (remote?: boolean): Promise<BranchRecord[]> => 
   const output: string = await ShellTools.executeCommand(
     `cd ${repositoryPath} && git branch${remote ? ' -r' : ''}`
   );
-  return output.split('\n').map((l) => {
-    const active = l.indexOf('*') > -1;
-    return {
-      name: l.substring(active ? 2 : 0, l.length).trim(),
-      active,
-    };
-  });
+  return output
+    .split('\n')
+    .filter((e) => e)
+    .map((l) => {
+      const active = l.indexOf('*') > -1;
+      return {
+        name: l.substring(active ? 2 : 0, l.length).trim(),
+        active,
+      };
+    });
 };
 
 export const stash = async () => {
@@ -94,13 +97,16 @@ export const stashApply = async () => {
 };
 export const getStashList = async (): Promise<StashRecord[]> => {
   const output: string = await ShellTools.executeCommand(`cd ${repositoryPath} && git stash list`);
-  return output.split('\n').map((l) => {
-    const endOfId = l.indexOf(' ');
-    return {
-      id: l.substring(0, endOfId - 1),
-      name: l.substring(endOfId + 1, l.length).trim(),
-    };
-  });
+  return output
+    .split('\n')
+    .filter((e) => e)
+    .map((l) => {
+      const endOfId = l.indexOf(' ');
+      return {
+        id: l.substring(0, endOfId - 1),
+        name: l.substring(endOfId + 1, l.length).trim(),
+      };
+    });
 };
 export const getActiveRepository = () => {
   return repositoryPath;
