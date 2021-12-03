@@ -106,7 +106,7 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
                 syncStagedFiles();
               }}
             >
-              <Text>Unstage</Text>
+              <Button.Text>Unstage</Button.Text>
             </Button>
           </View>
         ))}

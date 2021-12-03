@@ -1,7 +1,15 @@
 import { lightenDarkenColor } from '@domains/interface/helpers/Color';
 import useTheme from '@domains/interface/hooks/useTheme';
-import React, { useState } from 'react';
-import { TextProps, TouchableOpacity, TouchableOpacityProps, View, ViewProps } from 'react-native';
+import React, { useRef, useState } from 'react';
+import {
+  TextProps,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  View,
+  ViewProps,
+  Animated,
+  Easing,
+} from 'react-native';
 import Text from './Text';
 
 interface Props extends ViewProps, TouchableOpacityProps {
@@ -14,6 +22,7 @@ const BUTTON_RADIUS = 6;
 export default function Button({ children, style, is3D, onPress, onPressIn, onPressOut, ...props }: Props) {
   const theme = useTheme();
   const [pressed, setPressed] = useState(false);
+  const pressAnim = useRef(new Animated.Value(-BUTTON_HEIGHT)).current;
 
   return (
     <View style={style} {...props}>
@@ -28,35 +37,63 @@ export default function Button({ children, style, is3D, onPress, onPressIn, onPr
           }}
         />
       )}
-      <TouchableOpacity
+      <Animated.View
         style={{
-          backgroundColor: theme.button.primary.background,
-          borderColor: theme.button.primary.border,
-          borderWidth: 1,
-          borderRadius: BUTTON_RADIUS,
-          paddingHorizontal: 12,
-          paddingVertical: 4,
-          alignItems: 'center',
-          justifyContent: 'center',
-          top: is3D && !pressed ? -BUTTON_HEIGHT : undefined,
           flex: 1,
-          flexDirection: 'row',
-        }}
-        activeOpacity={is3D ? 1 : undefined}
-        onPress={onPress}
-        onPressIn={(event) => {
-          setPressed(true);
-          // TODO: animate
-          !!onPressIn && onPressIn(event);
-        }}
-        onPressOut={(event) => {
-          setPressed(false);
-          // TODO: animate
-          !!onPressOut && onPressOut(event);
+          top: is3D ? pressAnim : undefined,
         }}
       >
-        {children}
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: theme.button.primary.background,
+            borderColor: theme.button.primary.border,
+            borderWidth: 1,
+            borderRadius: BUTTON_RADIUS,
+            paddingHorizontal: 12,
+            paddingVertical: 4,
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: 1,
+            flexDirection: 'row',
+          }}
+          activeOpacity={is3D ? 1 : undefined}
+          onPress={onPress}
+          onPressIn={(event) => {
+            if (is3D) {
+              setPressed(true);
+              Animated.timing(pressAnim, {
+                toValue: -2,
+                duration: 40,
+                easing: Easing.linear,
+                useNativeDriver: false,
+              }).start();
+            }
+            onPressIn?.(event);
+          }}
+          onPressOut={(event) => {
+            if (is3D) {
+              setPressed(false);
+              Animated.sequence([
+                Animated.timing(pressAnim, {
+                  toValue: -BUTTON_HEIGHT - 1,
+                  duration: 140,
+                  easing: Easing.ease,
+                  useNativeDriver: false,
+                }),
+                Animated.timing(pressAnim, {
+                  toValue: -BUTTON_HEIGHT,
+                  duration: 140,
+                  easing: Easing.ease,
+                  useNativeDriver: false,
+                }),
+              ]).start();
+            }
+            onPressOut?.(event);
+          }}
+        >
+          {children}
+        </TouchableOpacity>
+      </Animated.View>
     </View>
   );
 }
