@@ -25,7 +25,7 @@ export default function Commit({}: Props) {
     >
       <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16 }}>Commit</Text>
       <TextInput
-        style={{ flex: 1, marginBottom: 8, borderWidth: 1, padding: 8 }}
+        style={{ flex: 1, marginBottom: 12, borderWidth: 1, padding: 8 }}
         selectionColor={'transparent'}
         placeholder="Commit message"
         placeholderTextColor="#fff"
@@ -45,6 +45,7 @@ export default function Commit({}: Props) {
             setPerformingCommit(false);
             alert('commit performed');
           }}
+          is3D
         >
           {performingCommit ? (
             <ActivityIndicator color={theme.button.primary.text} />
@@ -61,6 +62,7 @@ export default function Commit({}: Props) {
             await push();
             alert('pushed');
           }}
+          is3D
         >
           {performingPush ? (
             <ActivityIndicator color={theme.button.primary.text} />
