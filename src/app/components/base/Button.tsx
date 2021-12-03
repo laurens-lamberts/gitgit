@@ -1,30 +1,63 @@
+import { lightenDarkenColor } from '@domains/interface/helpers/Color';
 import useTheme from '@domains/interface/hooks/useTheme';
-import React from 'react';
-import { TextProps, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import React, { useState } from 'react';
+import { TextProps, TouchableOpacity, TouchableOpacityProps, View, ViewProps } from 'react-native';
 import Text from './Text';
 
-export default function Button({ children, style, ...props }: TouchableOpacityProps) {
+interface Props extends ViewProps, TouchableOpacityProps {
+  is3D?: boolean;
+}
+
+const BUTTON_HEIGHT = 6;
+const BUTTON_RADIUS = 6;
+
+export default function Button({ children, style, is3D, onPress, onPressIn, onPressOut, ...props }: Props) {
   const theme = useTheme();
+  const [pressed, setPressed] = useState(false);
 
   return (
-    <TouchableOpacity
-      style={[
-        {
+    <View style={style} {...props}>
+      {is3D && (
+        <View
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            backgroundColor: lightenDarkenColor(theme.button.primary.background, -20),
+            borderRadius: BUTTON_RADIUS,
+          }}
+        />
+      )}
+      <TouchableOpacity
+        style={{
           backgroundColor: theme.button.primary.background,
           borderColor: theme.button.primary.border,
           borderWidth: 1,
-          borderRadius: 4,
+          borderRadius: BUTTON_RADIUS,
           paddingHorizontal: 12,
           paddingVertical: 4,
           alignItems: 'center',
           justifyContent: 'center',
-        },
-        style,
-      ]}
-      {...props}
-    >
-      {children}
-    </TouchableOpacity>
+          top: is3D && !pressed ? -BUTTON_HEIGHT : undefined,
+          flex: 1,
+          flexDirection: 'row',
+        }}
+        activeOpacity={is3D ? 1 : undefined}
+        onPress={onPress}
+        onPressIn={(event) => {
+          setPressed(true);
+          // TODO: animate
+          !!onPressIn && onPressIn(event);
+        }}
+        onPressOut={(event) => {
+          setPressed(false);
+          // TODO: animate
+          !!onPressOut && onPressOut(event);
+        }}
+      >
+        {children}
+      </TouchableOpacity>
+    </View>
   );
 }
 

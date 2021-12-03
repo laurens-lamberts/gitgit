@@ -27,7 +27,7 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
         }}
       >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Unstaged</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16 }}>Unstaged</Text>
           {(unstagedFiles?.length || 0) > 0 && (
             <Button
               style={{
@@ -83,7 +83,7 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
           borderColor: 'white',
         }}
       >
-        <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Staged</Text>
+        <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16 }}>Staged</Text>
         {stagedFiles?.map((name) => (
           <View
             key={name}

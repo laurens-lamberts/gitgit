@@ -23,7 +23,7 @@ export default function Commit({}: Props) {
         borderColor: 'white',
       }}
     >
-      <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>Commit</Text>
+      <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16 }}>Commit</Text>
       <TextInput
         style={{ flex: 1, marginBottom: 8, borderWidth: 1, padding: 8 }}
         selectionColor={'transparent'}

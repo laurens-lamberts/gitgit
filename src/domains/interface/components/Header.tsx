@@ -38,12 +38,12 @@ export default function Header({ syncGitStatus, syncing }: Props) {
             height: 42,
             width: 112,
             marginRight: 8,
-            flexDirection: 'row',
           }}
           onPress={() => {
             pull();
             syncGitStatus();
           }}
+          is3D
         >
           <Icon name="download-outline" style={{ marginRight: 8 }} />
           <Button.Text>Pull</Button.Text>
@@ -53,8 +53,8 @@ export default function Header({ syncGitStatus, syncing }: Props) {
             height: 42,
             width: 112,
             marginRight: 8,
-            flexDirection: 'row',
           }}
+          is3D
         >
           <Icon name="source-branch" style={{ marginRight: 8 }} />
           <Button.Text>Branch</Button.Text>
@@ -64,12 +64,12 @@ export default function Header({ syncGitStatus, syncing }: Props) {
             height: 42,
             width: 112,
             marginRight: 8,
-            flexDirection: 'row',
           }}
           onPress={() => {
             stash();
             syncGitStatus();
           }}
+          is3D
         >
           <Icon name="briefcase-download-outline" style={{ marginRight: 8 }} />
           <Button.Text>Stash</Button.Text>
@@ -78,12 +78,12 @@ export default function Header({ syncGitStatus, syncing }: Props) {
           style={{
             height: 42,
             width: 112,
-            flexDirection: 'row',
           }}
           onPress={() => {
             stashPop();
             syncGitStatus();
           }}
+          is3D
         >
           <Icon name="briefcase-upload-outline" style={{ marginRight: 8 }} />
           <Button.Text>Pop</Button.Text>
@@ -97,6 +97,7 @@ export default function Header({ syncGitStatus, syncing }: Props) {
             alignSelf: 'flex-end',
           }}
           onPress={syncGitStatus}
+          is3D
         >
           {syncing ? (
             <ActivityIndicator color={theme.button.primary.text} />
