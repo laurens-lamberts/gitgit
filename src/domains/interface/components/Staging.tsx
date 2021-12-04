@@ -83,7 +83,24 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
           borderColor: 'white',
         }}
       >
-        <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16 }}>Staged</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16 }}>Staged</Text>
+          {(stagedFiles?.length || 0) > 0 && (
+            <Button
+              style={{
+                marginBottom: 8,
+              }}
+              onPress={async () => {
+                await stagedFiles?.forEach(async (file) => {
+                  await stageUndo(file);
+                });
+                syncStagedFiles();
+              }}
+            >
+              <Button.Text>Unstage all</Button.Text>
+            </Button>
+          )}
+        </View>
         {stagedFiles?.map((name) => (
           <View
             key={name}
