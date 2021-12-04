@@ -6,11 +6,11 @@
 # Features
 
 - GUI for basic git actions and git history
-- commands: <code>checkout</code>, <code>stage</code>, <code>unstage</code>, <code>commit</code>, <code>push</code>, <code>pull</code>, <code>stash</code>, <code>pop</code>
+- commands: <code>checkout</code>, <code>branch</code>, <code>stage</code>, <code>unstage</code>, <code>commit</code>, <code>push</code>, <code>pull</code>, <code>stash</code>, <code>pop</code>
 
 ### To do
 
-- commands: <code>branch</code>, <code>fetch</code>, ... (many more)
+- commands: <code>fetch</code>, ... (many more)
 - Visual presentation of code changes
 - Visual tree-presentation of git history
 - Code compare tool + hunk staging

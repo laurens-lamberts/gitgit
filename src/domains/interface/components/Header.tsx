@@ -2,9 +2,9 @@ import Button from '@app/components/base/Button';
 import Icon from '@app/components/base/Icon';
 import Text from '@app/components/base/Text';
 import Logo from '@app/components/Logo';
-import { getActiveRepository, pull, stash, stashPop } from '@domains/git/api';
+import { branchCreate, getActiveRepository, pull, stash, stashPop } from '@domains/git/api';
 import React from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, Alert, View } from 'react-native';
 import useTheme from '../hooks/useTheme';
 
 interface Props {
@@ -51,6 +51,14 @@ export default function Header({ syncGitStatus, syncing }: Props) {
           style={{
             height: 42,
             marginRight: 8,
+          }}
+          onPress={() => {
+            Alert.prompt('Branch', 'Enter a branch name', (name) => {
+              if (name) {
+                branchCreate(name);
+                syncGitStatus();
+              }
+            });
           }}
           is3D
         >

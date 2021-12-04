@@ -1,4 +1,5 @@
 import Button from '@app/components/base/Button';
+import Icon from '@app/components/base/Icon';
 import Text from '@app/components/base/Text';
 import { push, commit } from '@domains/git/api';
 import React, { useState } from 'react';
@@ -73,7 +74,10 @@ export default function Commit({}: Props) {
           {performingPush ? (
             <ActivityIndicator color={theme.button.primary.text} />
           ) : (
-            <Button.Text>Push</Button.Text>
+            <>
+              <Icon name="briefcase-upload-outline" style={{ marginRight: 8 }} />
+              <Button.Text>Push</Button.Text>
+            </>
           )}
         </Button>
       </View>

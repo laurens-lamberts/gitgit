@@ -1,3 +1,5 @@
+const COLOR_PRIMARY = '#ffd200';
+
 const theme = {
   color: {
     red: '#FF0000',
@@ -6,7 +8,7 @@ const theme = {
   background: '#222',
   button: {
     primary: {
-      background: '#ffd200',
+      background: COLOR_PRIMARY,
       text: 'black',
       border: 'rgba(255,255,255,0.4)',
     },
@@ -16,13 +18,14 @@ const theme = {
       vertical: 4,
     },
   },
-  active: '#ffd200',
+  active: COLOR_PRIMARY,
   activeText: 'black',
   footer: {
     background: '#000',
   },
   header: {
     background: '#000',
+    border: COLOR_PRIMARY,
   },
   sidebarLeft: {
     background: '#111',
@@ -34,7 +37,7 @@ const theme = {
     background: '#222',
   },
   logo: {
-    primary: '#ffd200',
+    primary: COLOR_PRIMARY,
     secondary: '#666',
   },
 };
