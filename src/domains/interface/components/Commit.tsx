@@ -21,10 +21,12 @@ export default function Commit({}: Props) {
         padding: 8,
         borderWidth: 2,
         borderRadius: 4,
-        borderColor: 'white',
+        borderColor: theme.button.primary.background,
       }}
     >
-      <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16 }}>Commit</Text>
+      <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16, textTransform: 'uppercase' }}>
+        Commit
+      </Text>
       <TextInput
         style={{
           flex: 1,

@@ -23,11 +23,13 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
           padding: 8,
           borderWidth: 2,
           borderRadius: 4,
-          borderColor: 'white',
+          borderColor: theme.button.primary.background,
         }}
       >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16 }}>Unstaged</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16, textTransform: 'uppercase' }}>
+            Unstaged
+          </Text>
           {(unstagedFiles?.length || 0) > 0 && (
             <Button
               style={{
@@ -61,11 +63,13 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
           padding: 8,
           borderWidth: 2,
           borderRadius: 4,
-          borderColor: 'white',
+          borderColor: theme.button.primary.background,
         }}
       >
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16 }}>Staged</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16, textTransform: 'uppercase' }}>
+            Staged
+          </Text>
           {(stagedFiles?.length || 0) > 0 && (
             <Button
               style={{

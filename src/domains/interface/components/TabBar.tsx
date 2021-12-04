@@ -60,7 +60,13 @@ function TabBarButton({ setActiveTab, index, activeIndex, icon, label }: TabBarB
         color={selected ? theme.button.primary.text : theme.button.primary.inactive}
         style={{ marginRight: 8 }}
       />
-      <Text style={{ color: selected ? theme.button.primary.text : theme.button.primary.inactive }}>
+      <Text
+        style={{
+          color: selected ? theme.button.primary.text : theme.button.primary.inactive,
+          textTransform: 'uppercase',
+          fontWeight: 'bold',
+        }}
+      >
         {label}
       </Text>
     </TouchableOpacity>
