@@ -4,7 +4,7 @@ import Text from '@app/components/base/Text';
 import Logo from '@app/components/Logo';
 import { branchCreate, getActiveRepository, pull, stash, stashPop } from '@domains/git/api';
 import React from 'react';
-import { ActivityIndicator, Alert, View } from 'react-native';
+import { ActivityIndicator, Alert, TouchableOpacity, View } from 'react-native';
 import useTheme from '../hooks/useTheme';
 
 interface Props {
@@ -14,6 +14,10 @@ interface Props {
 
 export default function Header({ syncGitStatus, syncing }: Props) {
   const theme = useTheme();
+
+  const activeRepo = getActiveRepository();
+  const activeRepoPathParts = activeRepo.split('/');
+  const repoName = activeRepoPathParts[activeRepoPathParts.length - 1];
 
   return (
     <View
@@ -30,7 +34,13 @@ export default function Header({ syncGitStatus, syncing }: Props) {
     >
       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
         <Logo width={70} height={40} style={{ marginRight: 16 }} />
-        <Text>{getActiveRepository()}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            alert('not implemented: switch repo');
+          }}
+        >
+          <Text style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>{repoName}</Text>
+        </TouchableOpacity>
       </View>
       <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
         <Button

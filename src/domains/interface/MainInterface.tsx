@@ -1,13 +1,16 @@
+import Button from '@app/components/base/Button';
+import Icon from '@app/components/base/Icon';
 import Text from '@app/components/base/Text';
 import { getBranches, getHistory, getStaged, getUnstaged, getStashList } from '@domains/git/api';
 import { BranchRecord, HistoryRecord, StashRecord } from '@domains/git/types';
 import React, { useCallback, useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, useColorScheme, View } from 'react-native';
+import { SafeAreaView, ScrollView, TouchableOpacity, useColorScheme, View } from 'react-native';
 import Branches from './components/Branches';
 import Commit from './components/Commit';
 import Header from './components/Header';
 import History from './components/History';
 import Staging from './components/Staging';
+import TabBar from './components/TabBar';
 import useTheme from './hooks/useTheme';
 
 export default function MainInterface() {
@@ -21,6 +24,7 @@ export default function MainInterface() {
   const [unstagedFiles, setUnstagedFiles] = useState<string[]>();
   const [stagedFiles, setStagedFiles] = useState<string[]>();
   const [stashes, setStashes] = useState<StashRecord[]>();
+  const [activeTab, setActiveTab] = useState(0);
 
   const syncStagedFiles = async () => {
     setUnstagedFiles(await getUnstaged());
@@ -61,14 +65,24 @@ export default function MainInterface() {
             />
           </ScrollView>
         </View>
-        <View style={{ flex: 2, backgroundColor: theme.center.background, padding: 20 }}>
-          <ScrollView
-            contentContainerStyle={{
-              padding: 12,
+        <View style={{ flex: 2, backgroundColor: theme.center.background }}>
+          <TabBar setActiveTab={setActiveTab} activeTab={activeTab} />
+          <View
+            style={{
+              padding: 20,
             }}
           >
-            <History historyRecords={historyRecords} />
-          </ScrollView>
+            {activeTab === 0 && (
+              <ScrollView
+                contentContainerStyle={{
+                  padding: 12,
+                }}
+              >
+                <History historyRecords={historyRecords} />
+              </ScrollView>
+            )}
+            {activeTab === 1 && <View />}
+          </View>
         </View>
         <View style={{ flex: 1, backgroundColor: theme.sidebarRight.background, padding: 20 }}>
           <Staging

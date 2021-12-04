@@ -1,8 +1,8 @@
 import Button from '@app/components/base/Button';
 import Text from '@app/components/base/Text';
-import { stageUndo, stage, stageAll } from '@domains/git/api';
+import { stageUndo, stage, stageAll, getDiff } from '@domains/git/api';
 import React from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import useTheme from '../hooks/useTheme';
 
 interface Props {
@@ -43,34 +43,15 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
           )}
         </View>
         {unstagedFiles?.map((name) => (
-          <View
-            key={name}
-            style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
-            contextMenu={contextMenu}
-            onContextMenuItemClick={(event) => {
-              alert('click');
+          <FileListItem
+            name={name}
+            syncStagedFiles={syncStagedFiles}
+            ctaText={'Stage'}
+            ctaOnPress={async () => {
+              await stage(name);
+              syncStagedFiles();
             }}
-          >
-            <Text
-              style={{
-                marginBottom: 16,
-                flexShrink: 1,
-              }}
-            >
-              {name}
-            </Text>
-            <Button
-              style={{
-                marginBottom: 8,
-              }}
-              onPress={async () => {
-                await stage(name);
-                syncStagedFiles();
-              }}
-            >
-              <Button.Text>Stage</Button.Text>
-            </Button>
-          </View>
+          />
         ))}
       </View>
       <View
@@ -102,32 +83,56 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
           )}
         </View>
         {stagedFiles?.map((name) => (
-          <View
-            key={name}
-            style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
-          >
-            <Text
-              style={{
-                marginBottom: 16,
-                flexShrink: 1,
-              }}
-            >
-              {name}
-            </Text>
-            <Button
-              style={{
-                marginBottom: 8,
-              }}
-              onPress={async () => {
-                await stageUndo(name);
-                syncStagedFiles();
-              }}
-            >
-              <Button.Text>Unstage</Button.Text>
-            </Button>
-          </View>
+          <FileListItem
+            name={name}
+            syncStagedFiles={syncStagedFiles}
+            ctaText={'Unstage'}
+            ctaOnPress={async () => {
+              await stageUndo(name);
+              syncStagedFiles();
+            }}
+          />
         ))}
       </View>
     </>
+  );
+}
+
+interface FileListItemProps {
+  name: string;
+  syncStagedFiles: () => void;
+  ctaText: string;
+  ctaOnPress: () => void;
+}
+function FileListItem({ name, syncStagedFiles, ctaText, ctaOnPress }: FileListItemProps) {
+  return (
+    <TouchableOpacity
+      key={name}
+      style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+      /* contextMenu={contextMenu}
+      onContextMenuItemClick={(event) => {
+        alert('click');
+      }} */
+      onPress={async () => {
+        await getDiff(name);
+      }}
+    >
+      <Text
+        style={{
+          marginBottom: 16,
+          flexShrink: 1,
+        }}
+      >
+        {name}
+      </Text>
+      <Button
+        style={{
+          marginBottom: 8,
+        }}
+        onPress={ctaOnPress}
+      >
+        <Button.Text>{ctaText}</Button.Text>
+      </Button>
+    </TouchableOpacity>
   );
 }

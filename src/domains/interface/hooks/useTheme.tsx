@@ -1,4 +1,5 @@
 const COLOR_PRIMARY = '#ffd200';
+const COLOR_DIMMED_WHITE = 'rgba(255,255,255,0.4)';
 
 const theme = {
   color: {
@@ -10,7 +11,8 @@ const theme = {
     primary: {
       background: COLOR_PRIMARY,
       text: 'black',
-      border: 'rgba(255,255,255,0.4)',
+      border: COLOR_DIMMED_WHITE,
+      inactive: COLOR_DIMMED_WHITE,
     },
   },
   list: {

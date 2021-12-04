@@ -29,8 +29,8 @@ export const getHistory = async (type: GetHistoryType = 'LIMITED'): Promise<Hist
     }
   }
 };
-export const getDiff = async () => {
-  await ShellTools.executeCommand(`cd ${repositoryPath} && git diff`);
+export const getDiff = async (name?: string) => {
+  await ShellTools.executeCommand(`cd ${repositoryPath} && git diff` + (name && ` ${name}`));
 };
 export const getStatus = async () => {
   await ShellTools.executeCommand(`cd ${repositoryPath} && git status`);
