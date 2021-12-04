@@ -1,7 +1,7 @@
 import Button from '@app/components/base/Button';
 import Icon from '@app/components/base/Icon';
 import Text from '@app/components/base/Text';
-import { getBranches, getHistory, getStaged, getUnstaged, getStashList } from '@domains/git/api';
+import { getBranches, getHistory, getStaged, getUnstaged, getStashList, getDiff } from '@domains/git/api';
 import { BranchRecord, HistoryRecord, StashRecord } from '@domains/git/types';
 import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, TouchableOpacity, useColorScheme, View } from 'react-native';
@@ -25,6 +25,8 @@ export default function MainInterface() {
   const [stagedFiles, setStagedFiles] = useState<string[]>();
   const [stashes, setStashes] = useState<StashRecord[]>();
   const [activeTab, setActiveTab] = useState(0);
+  const [selectedFile, setSelectedFile] = useState('');
+  const [diff, setDiff] = useState<string[]>();
 
   const syncStagedFiles = async () => {
     setUnstagedFiles(await getUnstaged());
@@ -44,6 +46,13 @@ export default function MainInterface() {
   useEffect(() => {
     syncGitStatus();
   }, [syncGitStatus]);
+
+  useEffect(() => {
+    const getAndShowDiff = async () => {
+      setDiff(await getDiff(selectedFile));
+    };
+    getAndShowDiff();
+  }, [selectedFile]);
 
   return (
     <SafeAreaView
@@ -81,7 +90,19 @@ export default function MainInterface() {
                 <History historyRecords={historyRecords} />
               </ScrollView>
             )}
-            {activeTab === 1 && <View />}
+            {activeTab === 1 && (
+              <View style={{ alignItems: 'center' }}>
+                {selectedFile ? (
+                  <View>
+                    {diff?.map((d) => (
+                      <Text>{d}</Text>
+                    ))}
+                  </View>
+                ) : (
+                  <Text>No selected file</Text>
+                )}
+              </View>
+            )}
           </View>
         </View>
         <View style={{ flex: 1, backgroundColor: theme.sidebarRight.background, padding: 20 }}>
@@ -89,6 +110,10 @@ export default function MainInterface() {
             syncStagedFiles={syncStagedFiles}
             unstagedFiles={unstagedFiles}
             stagedFiles={stagedFiles}
+            selectedFile={selectedFile}
+            setSelectedFile={(name) => {
+              setSelectedFile(name);
+            }}
           />
           <Commit />
         </View>

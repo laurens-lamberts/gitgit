@@ -9,11 +9,19 @@ interface Props {
   unstagedFiles?: string[];
   stagedFiles?: string[];
   syncStagedFiles: () => void;
+  selectedFile: string;
+  setSelectedFile: (name: string) => void;
 }
 
-export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }: Props) {
+export default function Staging({
+  unstagedFiles,
+  stagedFiles,
+  syncStagedFiles,
+  selectedFile,
+  setSelectedFile,
+}: Props) {
   const theme = useTheme();
-  const contextMenu = [{ key: 'foo', title: 'Foo' }, { isSeparator: true }, { key: 'bar', title: 'Bar' }];
+  //const contextMenu = [{ key: 'foo', title: 'Foo' }, { isSeparator: true }, { key: 'bar', title: 'Bar' }];
   return (
     <>
       <View
@@ -52,6 +60,8 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
               await stage(name);
               syncStagedFiles();
             }}
+            selected={selectedFile === name}
+            setSelected={setSelectedFile}
           />
         ))}
       </View>
@@ -93,6 +103,8 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
               await stageUndo(name);
               syncStagedFiles();
             }}
+            selected={selectedFile === name}
+            setSelected={setSelectedFile}
           />
         ))}
       </View>
@@ -104,35 +116,47 @@ interface FileListItemProps {
   name: string;
   ctaText: string;
   ctaOnPress: () => void;
+  selected: boolean;
+  setSelected: (name: string) => void;
 }
-function FileListItem({ name, ctaText, ctaOnPress }: FileListItemProps) {
+function FileListItem({ name, ctaText, ctaOnPress, selected, setSelected }: FileListItemProps) {
+  const theme = useTheme();
   return (
     <TouchableOpacity
       key={name}
-      style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: selected ? theme.active : undefined,
+        marginBottom: 4,
+        paddingLeft: 4,
+      }}
       /* contextMenu={contextMenu}
       onContextMenuItemClick={(event) => {
         alert('click');
       }} */
       onPress={async () => {
-        await getDiff(name);
+        setSelected(name);
       }}
     >
       <Text
         style={{
-          marginBottom: 16,
           flexShrink: 1,
+          color: selected ? theme.activeText : 'white',
+          fontWeight: selected ? 'bold' : undefined,
         }}
       >
         {name}
       </Text>
       <Button
         style={{
-          marginBottom: 8,
+          height: 28,
         }}
+        backgroundColor={selected ? 'black' : undefined}
         onPress={ctaOnPress}
       >
-        <Button.Text>{ctaText}</Button.Text>
+        <Button.Text style={{ color: selected ? 'white' : 'black' }}>{ctaText}</Button.Text>
       </Button>
     </TouchableOpacity>
   );

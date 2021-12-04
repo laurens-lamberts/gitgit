@@ -13,16 +13,27 @@ import {
 import Text from './Text';
 
 interface Props extends ViewProps, TouchableOpacityProps {
+  backgroundColor?: string;
   is3D?: boolean;
 }
 
 const BUTTON_HEIGHT = 6;
 const BUTTON_RADIUS = 6;
 
-export default function Button({ children, style, is3D, onPress, onPressIn, onPressOut, ...props }: Props) {
+export default function Button({
+  children,
+  style,
+  backgroundColor,
+  is3D,
+  onPress,
+  onPressIn,
+  onPressOut,
+  ...props
+}: Props) {
   const theme = useTheme();
-  const [pressed, setPressed] = useState(false);
   const pressAnim = useRef(new Animated.Value(-BUTTON_HEIGHT)).current;
+
+  const backgroundColorToUse = backgroundColor ?? theme.button.primary.background;
 
   return (
     <View style={style} {...props}>
@@ -32,7 +43,7 @@ export default function Button({ children, style, is3D, onPress, onPressIn, onPr
             position: 'absolute',
             width: '100%',
             height: '100%',
-            backgroundColor: lightenDarkenColor(theme.button.primary.background, -20),
+            backgroundColor: lightenDarkenColor(backgroundColorToUse, -20),
             borderRadius: BUTTON_RADIUS,
           }}
         />
@@ -45,7 +56,7 @@ export default function Button({ children, style, is3D, onPress, onPressIn, onPr
       >
         <TouchableOpacity
           style={{
-            backgroundColor: theme.button.primary.background,
+            backgroundColor: backgroundColorToUse,
             borderColor: theme.button.primary.border,
             borderWidth: 1,
             borderRadius: BUTTON_RADIUS,
@@ -60,7 +71,6 @@ export default function Button({ children, style, is3D, onPress, onPressIn, onPr
           onPress={onPress}
           onPressIn={(event) => {
             if (is3D) {
-              setPressed(true);
               Animated.timing(pressAnim, {
                 toValue: -2,
                 duration: 40,
@@ -72,7 +82,6 @@ export default function Button({ children, style, is3D, onPress, onPressIn, onPr
           }}
           onPressOut={(event) => {
             if (is3D) {
-              setPressed(false);
               Animated.sequence([
                 Animated.timing(pressAnim, {
                   toValue: -BUTTON_HEIGHT - 1,

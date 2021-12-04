@@ -29,8 +29,18 @@ export const getHistory = async (type: GetHistoryType = 'LIMITED'): Promise<Hist
     }
   }
 };
-export const getDiff = async (name?: string) => {
-  await ShellTools.executeCommand(`cd ${repositoryPath} && git diff` + (name && ` ${name}`));
+export const getDiff = async (name?: string): Promise<string[]> => {
+  const output = await ShellTools.executeCommand(`cd ${repositoryPath} && git diff` + (name && ` ${name}`));
+
+  return output.split('\n');
+  /* .filter((e) => e)
+    .map((l) => {
+      const active = l.indexOf('*') > -1;
+      return {
+        name: l.substring(active ? 2 : 0, l.length).trim(),
+        active,
+      };
+    }); */
 };
 export const getStatus = async () => {
   await ShellTools.executeCommand(`cd ${repositoryPath} && git status`);

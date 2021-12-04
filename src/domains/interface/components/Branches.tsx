@@ -53,6 +53,7 @@ export default function Branches({
               await validateAndSwitchBranch(b.name);
               syncGitStatus();
             }}
+            disabled={b.active}
           >
             <Icon
               name="source-branch"
