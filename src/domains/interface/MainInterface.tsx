@@ -76,11 +76,7 @@ export default function MainInterface() {
         </View>
         <View style={{ flex: 2, backgroundColor: theme.center.background }}>
           <TabBar setActiveTab={setActiveTab} activeTab={activeTab} />
-          <View
-            style={{
-              padding: 20,
-            }}
-          >
+          <View style={{}}>
             {activeTab === 0 && (
               <ScrollView
                 contentContainerStyle={{
@@ -93,11 +89,11 @@ export default function MainInterface() {
             {activeTab === 1 && (
               <View style={{ alignItems: 'center' }}>
                 {selectedFile ? (
-                  <View>
+                  <ScrollView contentContainerStyle={{ padding: 12 }}>
                     {diff?.map((d) => (
                       <Text>{d}</Text>
                     ))}
-                  </View>
+                  </ScrollView>
                 ) : (
                   <Text>No selected file</Text>
                 )}
