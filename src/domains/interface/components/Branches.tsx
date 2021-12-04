@@ -79,7 +79,6 @@ export default function Branches({
             style={{
               paddingHorizontal: 20,
               paddingVertical: theme.list.spacing.vertical,
-              backgroundColor: b.active ? 'green' : undefined,
               flexDirection: 'row',
               alignItems: 'center',
             }}
@@ -88,13 +87,8 @@ export default function Branches({
               syncGitStatus();
             }}
           >
-            <Icon
-              name="source-branch"
-              style={{ marginRight: 8 }}
-              size={ICON_SIZE}
-              color={b.active ? theme.activeText : 'white'}
-            />
-            <Text style={{ color: b.active ? theme.activeText : 'white' }}>{b.name}</Text>
+            <Icon name="source-branch" style={{ marginRight: 8 }} size={ICON_SIZE} color={'white'} />
+            <Text style={{ color: 'white' }}>{b.name}</Text>
           </TouchableOpacity>
         ))}
       </View>

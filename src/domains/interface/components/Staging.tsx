@@ -47,7 +47,6 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
         {unstagedFiles?.map((name) => (
           <FileListItem
             name={name}
-            syncStagedFiles={syncStagedFiles}
             ctaText={'Stage'}
             ctaOnPress={async () => {
               await stage(name);
@@ -89,7 +88,6 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
         {stagedFiles?.map((name) => (
           <FileListItem
             name={name}
-            syncStagedFiles={syncStagedFiles}
             ctaText={'Unstage'}
             ctaOnPress={async () => {
               await stageUndo(name);
@@ -104,11 +102,10 @@ export default function Staging({ unstagedFiles, stagedFiles, syncStagedFiles }:
 
 interface FileListItemProps {
   name: string;
-  syncStagedFiles: () => void;
   ctaText: string;
   ctaOnPress: () => void;
 }
-function FileListItem({ name, syncStagedFiles, ctaText, ctaOnPress }: FileListItemProps) {
+function FileListItem({ name, ctaText, ctaOnPress }: FileListItemProps) {
   return (
     <TouchableOpacity
       key={name}
