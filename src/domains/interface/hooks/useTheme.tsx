@@ -2,10 +2,6 @@ const COLOR_PRIMARY = '#ffd200';
 const COLOR_DIMMED_WHITE = 'rgba(255,255,255,0.4)';
 
 const theme = {
-  color: {
-    red: '#FF0000',
-    cyan: '#00FFFF',
-  },
   background: '#222',
   button: {
     primary: {
@@ -37,6 +33,10 @@ const theme = {
   },
   center: {
     background: '#222',
+  },
+  diff: {
+    added: COLOR_PRIMARY,
+    removed: '#E94F37',
   },
   logo: {
     primary: COLOR_PRIMARY,

@@ -91,17 +91,22 @@ export default function MainInterface() {
                 {selectedFile ? (
                   <ScrollView contentContainerStyle={{ padding: 12 }} style={{ flex: 1 }}>
                     {diff?.map((d) => (
-                      <View style={{ flexDirection: 'row', width: '100%' }}>
-                        <Text style={{ width: '3%', minWidth: 20 }}>{d.lineNumber}</Text>
-                        <Text style={{ width: '3%', minWidth: 20 }}>{d.mutation}</Text>
+                      <View style={{ flexDirection: 'row' }}>
+                        <Text style={{ width: 32 }}>{d.lineNumber}</Text>
+                        <Text style={{ width: 20 }}>{d.mutation}</Text>
                         <View
                           style={{
-                            width: '94%',
+                            alignSelf: 'stretch',
+                            flexGrow: 1,
                             backgroundColor:
-                              d.mutation === '+' ? 'green' : d.mutation === '-' ? 'red' : undefined,
+                              d.mutation === '+'
+                                ? theme.diff.added
+                                : d.mutation === '-'
+                                ? theme.diff.removed
+                                : undefined,
                           }}
                         >
-                          <Text style={{ flex: 1 }}>{d.text}</Text>
+                          <Text style={{ color: d.mutation ? 'black' : undefined }}>{d.text}</Text>
                         </View>
                       </View>
                     ))}
