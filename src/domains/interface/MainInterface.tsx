@@ -36,7 +36,7 @@ export default function MainInterface() {
 
   const syncGitStatus = useCallback(async () => {
     setSyncing(true);
-    setHistoryRecords(await getHistory('LIMITED'));
+    setHistoryRecords(await getHistory());
     setLocalBranches(await getBranches());
     setRemoteBranches(await getBranches(true));
     setStashes(await getStashList());

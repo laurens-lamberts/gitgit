@@ -15,8 +15,16 @@ export default function DiffViewer({ diff }: Props) {
     <ScrollView contentContainerStyle={{ padding: 12 }} style={{ flex: 1 }}>
       {diff?.map((d) => (
         <View key={d.index} style={{ flexDirection: 'row' }}>
-          <Text style={{ width: 32, color: theme.text.dimmed }}>{d.lineNumber}</Text>
-          <Text style={{ width: 20, color: theme.text.dimmed }}>{d.mutation}</Text>
+          <Text
+            style={{ width: 32, fontFamily: theme.fonts.monospace, lineHeight: 20, color: theme.text.dimmed }}
+          >
+            {d.lineNumber}
+          </Text>
+          <Text
+            style={{ width: 20, fontFamily: theme.fonts.monospace, lineHeight: 20, color: theme.text.dimmed }}
+          >
+            {d.mutation}
+          </Text>
           <View
             style={{
               alignSelf: 'stretch',
@@ -25,7 +33,15 @@ export default function DiffViewer({ diff }: Props) {
                 d.mutation === '+' ? theme.diff.added : d.mutation === '-' ? theme.diff.removed : undefined,
             }}
           >
-            <Text style={{ color: d.mutation ? 'black' : undefined }}>{d.text}</Text>
+            <Text
+              style={{
+                fontFamily: theme.fonts.monospace,
+                lineHeight: 20,
+                color: d.mutation ? 'black' : undefined,
+              }}
+            >
+              {d.text}
+            </Text>
           </View>
         </View>
       ))}

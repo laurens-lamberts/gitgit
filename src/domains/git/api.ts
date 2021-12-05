@@ -4,30 +4,23 @@ import { BranchRecord, DiffLine, GetHistoryType, HistoryRecord, StashRecord } fr
 const repositoryPath = '~/ws/react-native/landal-park-app-v2';
 const { ShellTools } = NativeModules;
 
-export const getHistory = async (type: GetHistoryType = 'LIMITED'): Promise<HistoryRecord[]> => {
-  const LIMIT = 10;
-  let command = `cd ${repositoryPath} && git log -${LIMIT}`;
-  switch (type) {
-    case 'LIMITED': {
-      const output: string = await ShellTools.executeCommand(command + ' --oneline');
-      return output.split('\n').map((l) => {
-        const endOfId = l.indexOf(' ');
-        return {
-          commitId: l.substring(0, endOfId),
-          commitMessage: l.substring(endOfId + 1, l.length),
-        };
-      });
-    }
-    case 'EXTENDED': {
-      // Not implemented
-      return [];
-    }
-    case 'FULL': {
-      // Not implemented
-      command += ' --stat';
-      return [];
-    }
-  }
+export const getHistory = async (): Promise<HistoryRecord[]> => {
+  const LIMIT = 100;
+  let command = `cd ${repositoryPath} && git log --branches --remotes --tags --date-order --date=relative --format="%s||%an||%ad||%h" -${LIMIT} HEAD `;
+  const output: string = await ShellTools.executeCommand(command);
+  return output
+    .split('\n')
+    .filter((e: string) => e)
+    .map((l) => {
+      const parts = l.split('||');
+      return {
+        commitMessage: parts[0],
+        author: parts[1],
+        timestamp: parts[2],
+        commitId: parts[3],
+        full: l,
+      };
+    });
 };
 export const getDiff = async (name?: string): Promise<DiffLine[]> => {
   const output = await ShellTools.executeCommand(`cd ${repositoryPath} && git diff` + (name && ` ${name}`));

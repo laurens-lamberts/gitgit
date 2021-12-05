@@ -45,6 +45,9 @@ const theme = {
     primary: COLOR_PRIMARY,
     secondary: '#666',
   },
+  fonts: {
+    monospace: 'courier new',
+  },
 };
 
 export default function useTheme() {

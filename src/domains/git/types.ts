@@ -10,6 +10,9 @@ export type DiffLine = {
 export type HistoryRecord = {
   commitId: string;
   commitMessage: string;
+  author: string;
+  timestamp: string;
+  full: string;
 };
 
 export type BranchRecord = {

@@ -7,13 +7,15 @@
 
 - GUI for basic git actions and git history
 - commands: <code>checkout</code>, <code>branch</code>, <code>stage</code>, <code>unstage</code>, <code>commit</code>, <code>push</code>, <code>pull</code>, <code>stash</code>, <code>pop</code>
+- Visual presentation of code changes
 
 ### To do
 
 - commands: <code>fetch</code>, ... (many more)
-- Visual presentation of code changes
 - Visual tree-presentation of git history
+- Context menu for file features (like discard, show in finder...)
 - Code compare tool + hunk staging
+- Rebare and merge (& resolve conflicts)
 - Windows implementation of ShellTools
 
 <br/>
