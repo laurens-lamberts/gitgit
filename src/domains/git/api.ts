@@ -38,12 +38,13 @@ export const getDiff = async (name?: string): Promise<DiffLine[]> => {
   }
 
   let lineNumber = 1;
-  return outputLines.slice(5).map((l: string) => {
+  return outputLines.slice(5).map((l: string, index: number) => {
     const added = l[0] === '+';
     const removed = l[0] === '-';
     const mutation = added ? '+' : removed ? '-' : undefined;
 
     return {
+      index,
       text: l.substring(added || removed ? 1 : 0, l.length).trim(),
       mutation,
       lineNumber: !removed && lineNumber++,

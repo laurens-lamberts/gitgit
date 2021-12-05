@@ -16,6 +16,9 @@ const theme = {
       vertical: 4,
     },
   },
+  text: {
+    dimmed: COLOR_DIMMED_WHITE,
+  },
   active: COLOR_PRIMARY,
   activeText: 'black',
   footer: {

@@ -1,6 +1,7 @@
 export type GetHistoryType = 'FULL' | 'LIMITED' | 'EXTENDED';
 
 export type DiffLine = {
+  index: number;
   lineNumber: string;
   mutation?: '+' | '-';
   text: string;

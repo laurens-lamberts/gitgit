@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, TouchableOpacity, useColorScheme, View } from 'react-native';
 import Branches from './components/Branches';
 import Commit from './components/Commit';
+import DiffViewer from './components/DiffViewer';
 import Header from './components/Header';
 import History from './components/History';
 import Staging from './components/Staging';
@@ -89,28 +90,7 @@ export default function MainInterface() {
             {activeTab === 1 && (
               <View style={{ alignItems: 'center', flex: 1 }}>
                 {selectedFile ? (
-                  <ScrollView contentContainerStyle={{ padding: 12 }} style={{ flex: 1 }}>
-                    {diff?.map((d) => (
-                      <View style={{ flexDirection: 'row' }}>
-                        <Text style={{ width: 32 }}>{d.lineNumber}</Text>
-                        <Text style={{ width: 20 }}>{d.mutation}</Text>
-                        <View
-                          style={{
-                            alignSelf: 'stretch',
-                            flexGrow: 1,
-                            backgroundColor:
-                              d.mutation === '+'
-                                ? theme.diff.added
-                                : d.mutation === '-'
-                                ? theme.diff.removed
-                                : undefined,
-                          }}
-                        >
-                          <Text style={{ color: d.mutation ? 'black' : undefined }}>{d.text}</Text>
-                        </View>
-                      </View>
-                    ))}
-                  </ScrollView>
+                  <DiffViewer diff={diff} />
                 ) : (
                   <Text style={{ padding: 12 }}>No selected file</Text>
                 )}
