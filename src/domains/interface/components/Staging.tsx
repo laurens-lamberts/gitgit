@@ -130,7 +130,9 @@ function FileListItem({ name, ctaText, ctaOnPress, selected, setSelected }: File
         alignItems: 'center',
         backgroundColor: selected ? theme.active : undefined,
         marginBottom: 4,
-        paddingLeft: 4,
+        marginHorizontal: selected ? -8 : 0,
+        paddingHorizontal: selected ? 8 : 0,
+        paddingVertical: 2,
       }}
       /* contextMenu={contextMenu}
       onContextMenuItemClick={(event) => {
