@@ -2,7 +2,7 @@ import Button from '@app/components/base/Button';
 import Icon from '@app/components/base/Icon';
 import Text from '@app/components/base/Text';
 import { getBranches, getHistory, getStaged, getUnstaged, getStashList, getDiff } from '@domains/git/api';
-import { BranchRecord, HistoryRecord, StashRecord } from '@domains/git/types';
+import { BranchRecord, DiffLine, HistoryRecord, StashRecord } from '@domains/git/types';
 import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, TouchableOpacity, useColorScheme, View } from 'react-native';
 import Branches from './components/Branches';
@@ -26,7 +26,7 @@ export default function MainInterface() {
   const [stashes, setStashes] = useState<StashRecord[]>();
   const [activeTab, setActiveTab] = useState(0);
   const [selectedFile, setSelectedFile] = useState('');
-  const [diff, setDiff] = useState<string[]>();
+  const [diff, setDiff] = useState<DiffLine[]>();
 
   const syncStagedFiles = async () => {
     setUnstagedFiles(await getUnstaged());
@@ -76,7 +76,7 @@ export default function MainInterface() {
         </View>
         <View style={{ flex: 2, backgroundColor: theme.center.background }}>
           <TabBar setActiveTab={setActiveTab} activeTab={activeTab} />
-          <View style={{}}>
+          <View style={{ flex: 1 }}>
             {activeTab === 0 && (
               <ScrollView
                 contentContainerStyle={{
@@ -87,15 +87,27 @@ export default function MainInterface() {
               </ScrollView>
             )}
             {activeTab === 1 && (
-              <View style={{ alignItems: 'center' }}>
+              <View style={{ alignItems: 'center', flex: 1 }}>
                 {selectedFile ? (
-                  <ScrollView contentContainerStyle={{ padding: 12 }}>
+                  <ScrollView contentContainerStyle={{ padding: 12 }} style={{ flex: 1 }}>
                     {diff?.map((d) => (
-                      <Text>{d}</Text>
+                      <View style={{ flexDirection: 'row', width: '100%' }}>
+                        <Text style={{ width: '3%', minWidth: 20 }}>{d.lineNumber}</Text>
+                        <Text style={{ width: '3%', minWidth: 20 }}>{d.mutation}</Text>
+                        <View
+                          style={{
+                            width: '94%',
+                            backgroundColor:
+                              d.mutation === '+' ? 'green' : d.mutation === '-' ? 'red' : undefined,
+                          }}
+                        >
+                          <Text style={{ flex: 1 }}>{d.text}</Text>
+                        </View>
+                      </View>
                     ))}
                   </ScrollView>
                 ) : (
-                  <Text>No selected file</Text>
+                  <Text style={{ padding: 12 }}>No selected file</Text>
                 )}
               </View>
             )}
@@ -109,6 +121,7 @@ export default function MainInterface() {
             selectedFile={selectedFile}
             setSelectedFile={(name) => {
               setSelectedFile(name);
+              setActiveTab(1);
             }}
           />
           <Commit />

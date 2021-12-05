@@ -1,5 +1,5 @@
 import { NativeModules } from 'react-native';
-import { BranchRecord, GetHistoryType, HistoryRecord, StashRecord } from './types';
+import { BranchRecord, DiffLine, GetHistoryType, HistoryRecord, StashRecord } from './types';
 
 const repositoryPath = '~/ws/react-native/landal-park-app-v2';
 const { ShellTools } = NativeModules;
@@ -29,18 +29,26 @@ export const getHistory = async (type: GetHistoryType = 'LIMITED'): Promise<Hist
     }
   }
 };
-export const getDiff = async (name?: string): Promise<string[]> => {
+export const getDiff = async (name?: string): Promise<DiffLine[]> => {
   const output = await ShellTools.executeCommand(`cd ${repositoryPath} && git diff` + (name && ` ${name}`));
+  const outputLines = output.split('\n').filter((e: string) => e);
 
-  return output.split('\n');
-  /* .filter((e) => e)
-    .map((l) => {
-      const active = l.indexOf('*') > -1;
-      return {
-        name: l.substring(active ? 2 : 0, l.length).trim(),
-        active,
-      };
-    }); */
+  if (outputLines.length < 5) {
+    return [];
+  }
+
+  let lineNumber = 1;
+  return outputLines.slice(5).map((l: string) => {
+    const added = l[0] === '+';
+    const removed = l[0] === '-';
+    const mutation = added ? '+' : removed ? '-' : undefined;
+
+    return {
+      text: l.substring(added || removed ? 1 : 0, l.length).trim(),
+      mutation,
+      lineNumber: !removed && lineNumber++,
+    };
+  });
 };
 export const getStatus = async () => {
   await ShellTools.executeCommand(`cd ${repositoryPath} && git status`);

@@ -1,5 +1,11 @@
 export type GetHistoryType = 'FULL' | 'LIMITED' | 'EXTENDED';
 
+export type DiffLine = {
+  lineNumber: string;
+  mutation?: '+' | '-';
+  text: string;
+};
+
 export type HistoryRecord = {
   commitId: string;
   commitMessage: string;
