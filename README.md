@@ -6,11 +6,12 @@
 # Features
 
 - GUI for basic git actions and git history
-- commands: <code>checkout</code>, <code>branch</code>, <code>stage</code>, <code>unstage</code>, <code>commit</code>, <code>push</code>, <code>pull</code>, <code>stash</code>, <code>pop</code>
 - Visual presentation of code changes
+- commands: <code>checkout</code>, <code>branch</code>, <code>stage</code>, <code>unstage</code>, <code>commit</code>, <code>push</code>, <code>pull</code>, <code>stash</code>, <code>pop</code>
 
 ### To do
 
+- active watch (and/or git status refresh on window focus)
 - commands: <code>fetch</code>, ... (many more)
 - Visual tree-presentation of git history
 - Context menu for file features (like discard, show in finder...)
