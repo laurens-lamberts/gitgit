@@ -28,9 +28,7 @@ export default function History({ historyRecords }: Props) {
 
             <Text
               style={{
-                fontFamily: theme.fonts.monospace,
                 lineHeight: 20,
-                fontSize: 16,
               }}
             >
               {r.commitMessage}
@@ -39,16 +37,16 @@ export default function History({ historyRecords }: Props) {
           <View style={{ flexDirection: 'row' }}>
             <Text
               style={{
-                fontFamily: theme.fonts.monospace,
                 lineHeight: 20,
+                fontStyle: 'italic',
               }}
             >
-              {`${r.author} @ `}
+              {`${r.author} - `}
             </Text>
             <Text
               style={{
-                fontFamily: theme.fonts.monospace,
                 lineHeight: 20,
+                fontStyle: 'italic',
               }}
             >
               {r.timestamp}
