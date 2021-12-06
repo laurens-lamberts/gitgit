@@ -37,7 +37,7 @@
 - change `repositoryPath` in `src/domains/git/api.ts` to your repo, and save.
 - `yarn macos`
 
-# Getting started Windows <sup>(coming soon)</sup>
+# Getting started Windows <sup>(coming soon - Shelltools not implemented)</sup>
 
 ### Requirements
 
