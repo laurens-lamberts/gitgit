@@ -34,6 +34,7 @@
 
 - `yarn`
 - `npx pod install --project-directory=macos`
+- change `repositoryPath` in `src/domains/git/api.ts` to your repo, and save.
 - `yarn macos`
 
 # Getting started Windows <sup>(coming soon)</sup>
@@ -52,4 +53,5 @@
 - `yarn add react-native-windows`
 - `yarn`
 - `Uncomment the two 'UNCOMMENT FOR WINDOWS' sections in metro.config.js`
+- change `repositoryPath` in `src/domains/git/api.ts` to your repo, and save.
 - `yarn windows`
