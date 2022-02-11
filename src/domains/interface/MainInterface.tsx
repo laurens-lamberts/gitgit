@@ -3,8 +3,8 @@ import Icon from '@app/components/base/Icon';
 import Text from '@app/components/base/Text';
 import { getBranches, getHistory, getStaged, getUnstaged, getStashList, getDiff } from '@domains/git/api';
 import { BranchRecord, DiffLine, HistoryRecord, StashRecord } from '@domains/git/types';
-import React, { useCallback, useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, TouchableOpacity, useColorScheme, View } from 'react-native';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { AppState, SafeAreaView, ScrollView, TouchableOpacity, useColorScheme, View } from 'react-native';
 import Branches from './components/Branches';
 import Commit from './components/Commit';
 import DiffViewer from './components/DiffViewer';
@@ -28,6 +28,8 @@ export default function MainInterface() {
   const [activeTab, setActiveTab] = useState(0);
   const [selectedFile, setSelectedFile] = useState('');
   const [diff, setDiff] = useState<DiffLine[]>();
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
   const syncStagedFiles = async () => {
     setUnstagedFiles(await getUnstaged());
@@ -35,6 +37,8 @@ export default function MainInterface() {
   };
 
   const syncGitStatus = useCallback(async () => {
+    if (syncing) return; // throttle
+    console.log('Syncing Git status');
     setSyncing(true);
     setHistoryRecords(await getHistory());
     setLocalBranches(await getBranches());
@@ -42,12 +46,34 @@ export default function MainInterface() {
     setStashes(await getStashList());
     await syncStagedFiles();
     setSyncing(false);
-  }, []);
+  }, [syncing]);
 
   useEffect(() => {
-    syncGitStatus();
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+        syncGitStatus();
+      }
+
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current);
+    });
+
+    const syncInterval = setInterval(() => {
+      // sync every 10sec
+      syncGitStatus();
+      return () => clearInterval(syncInterval);
+    }, 10000);
+
+    return () => {
+      subscription.remove();
+      clearInterval(syncInterval);
+    };
   }, [syncGitStatus]);
 
+  /*   useEffect(() => {
+    syncGitStatus();
+  }, [syncGitStatus]);
+ */
   useEffect(() => {
     const getAndShowDiff = async () => {
       setDiff(await getDiff(selectedFile));
