@@ -2,7 +2,7 @@ require_relative '../node_modules/react-native-macos/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 target 'gitgit-macOS' do
-  platform :macos, '10.14'
+  platform :macos, '11.0'
   use_native_modules!
   use_react_native!(
     :path => '../node_modules/react-native-macos',
@@ -18,7 +18,7 @@ target 'gitgit-macOS' do
 end
 
 target 'gitgit-iOS' do
-  platform :ios, '10'
+  platform :ios, '11'
   use_native_modules!
   use_react_native!(:path => '../node_modules/react-native-macos')
 
