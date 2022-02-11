@@ -10,6 +10,7 @@ import {
   Animated,
   Easing,
 } from 'react-native';
+import Pressable from 'react-native-macos/Libraries/Components/Pressable/Pressable';
 import Text from './Text';
 
 interface Props extends ViewProps, TouchableOpacityProps {
@@ -54,7 +55,7 @@ export default function Button({
           top: is3D ? pressAnim : undefined,
         }}
       >
-        <TouchableOpacity
+        <Pressable
           style={{
             backgroundColor: backgroundColorToUse,
             borderColor: theme.button.primary.border,
@@ -67,7 +68,7 @@ export default function Button({
             flex: 1,
             flexDirection: 'row',
           }}
-          activeOpacity={is3D ? 1 : undefined}
+          //activeOpacity={is3D ? 1 : undefined}
           onPress={onPress}
           onPressIn={(event) => {
             if (is3D) {
@@ -99,9 +100,29 @@ export default function Button({
             }
             onPressOut?.(event);
           }}
+          /* onHoverIn={() => {
+            if (is3D) {
+              Animated.timing(pressAnim, {
+                toValue: -BUTTON_HEIGHT + 1,
+                duration: 40,
+                easing: Easing.linear,
+                useNativeDriver: false,
+              }).start();
+            }
+          }}
+          onHoverOut={() => {
+            if (is3D) {
+              Animated.timing(pressAnim, {
+                toValue: -BUTTON_HEIGHT,
+                duration: 40,
+                easing: Easing.linear,
+                useNativeDriver: false,
+              }).start();
+            }
+          }} */
         >
           {children}
-        </TouchableOpacity>
+        </Pressable>
       </Animated.View>
     </View>
   );
