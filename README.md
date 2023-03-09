@@ -32,8 +32,9 @@
 
 ### Steps
 
+- `nvm use 16.13.0`
 - `yarn`
-- `npx pod install --project-directory=macos`
+- `npx pod-install`
 - change `repositoryPath` in `src/domains/git/api.ts` to your repo, and save.
 - `yarn macos`
 
