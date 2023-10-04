@@ -15,5 +15,5 @@ Een git GUI applicatie.
 # Con's
 
 - repo lijkt niet erg actief. Issues & pull requests staan jarenlang open.
-- basis-functionaliteit voor desktop applicaties zit niet in react-native-macos, zoals 'rechtermuisknop' menu
+- basis-functionaliteit voor desktop applicaties zit niet in react-native-macos, zoals 'rechtermuisknop' context menu
 - documentatie en changelogs zijn erg beperkt, en niet compleet. Ook missen er typescript types voor react-native-macos.

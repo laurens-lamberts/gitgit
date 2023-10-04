@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "GitGit.app"
-               BlueprintName = "GitGit"
-               ReferencedContainer = "container:GitGit.xcodeproj">
+               BuildableName = "gitgit.app"
+               BlueprintName = "gitgit"
+               ReferencedContainer = "container:gitgit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "GitGitTests.xctest"
-               BlueprintName = "GitGitTests"
-               ReferencedContainer = "container:GitGit.xcodeproj">
+               BuildableName = "gitgitTests.xctest"
+               BlueprintName = "gitgitTests"
+               ReferencedContainer = "container:gitgit.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "GitGit.app"
-            BlueprintName = "GitGit"
-            ReferencedContainer = "container:GitGit.xcodeproj">
+            BuildableName = "gitgit.app"
+            BlueprintName = "gitgit"
+            ReferencedContainer = "container:gitgit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "GitGit.app"
-            BlueprintName = "GitGit"
-            ReferencedContainer = "container:GitGit.xcodeproj">
+            BuildableName = "gitgit.app"
+            BlueprintName = "gitgit"
+            ReferencedContainer = "container:gitgit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

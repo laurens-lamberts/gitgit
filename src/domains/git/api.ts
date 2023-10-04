@@ -1,7 +1,7 @@
 import { NativeModules } from 'react-native';
 import { BranchRecord, DiffLine, GetHistoryType, HistoryRecord, StashRecord } from './types';
 
-const repositoryPath = '~/ws/react-native/landal-park-app-v2';
+const repositoryPath = '~/ws/react-native/gitgit';
 const { ShellTools } = NativeModules;
 
 export const getHistory = async (): Promise<HistoryRecord[]> => {
