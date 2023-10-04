@@ -2,7 +2,7 @@ import Button from '@app/components/base/Button';
 import Text from '@app/components/base/Text';
 import { stageUndo, stage, stageAll, getDiff } from '@domains/git/api';
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View, ScrollView } from 'react-native';
 import useTheme from '../hooks/useTheme';
 
 interface Props {
@@ -52,18 +52,20 @@ export default function Staging({
             </Button>
           )}
         </View>
-        {unstagedFiles?.map((name) => (
-          <FileListItem
-            name={name}
-            ctaText={'Stage'}
-            ctaOnPress={async () => {
-              await stage(name);
-              syncStagedFiles();
-            }}
-            selected={selectedFile === name}
-            setSelected={setSelectedFile}
-          />
-        ))}
+        <ScrollView>
+          {unstagedFiles?.map((name) => (
+            <FileListItem
+              name={name}
+              ctaText={'Stage'}
+              ctaOnPress={async () => {
+                await stage(name);
+                syncStagedFiles();
+              }}
+              selected={selectedFile === name}
+              setSelected={setSelectedFile}
+            />
+          ))}
+        </ScrollView>
       </View>
       <View
         style={{
@@ -95,18 +97,20 @@ export default function Staging({
             </Button>
           )}
         </View>
-        {stagedFiles?.map((name) => (
-          <FileListItem
-            name={name}
-            ctaText={'Unstage'}
-            ctaOnPress={async () => {
-              await stageUndo(name);
-              syncStagedFiles();
-            }}
-            selected={selectedFile === name}
-            setSelected={setSelectedFile}
-          />
-        ))}
+        <ScrollView>
+          {stagedFiles?.map((name) => (
+            <FileListItem
+              name={name}
+              ctaText={'Unstage'}
+              ctaOnPress={async () => {
+                await stageUndo(name);
+                syncStagedFiles();
+              }}
+              selected={selectedFile === name}
+              setSelected={setSelectedFile}
+            />
+          ))}
+        </ScrollView>
       </View>
     </>
   );
