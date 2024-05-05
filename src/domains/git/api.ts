@@ -48,7 +48,7 @@ export const getStatus = async () => {
   await ShellTools.executeCommand(`cd ${repositoryPath} && git status`);
 };
 export const getStaged = async () => {
-  const output = await ShellTools.executeCommand(`cd ${repositoryPath} && git diff --name-only --cached`);
+  const output = await ShellTools.executeCommand(`cd ${repositoryPath} && git diff --name-only --cached`); // OR git diff HEAD --name-only
   return output.split('\n').filter((e) => e);
 };
 export const getUnstaged = async () => {
@@ -96,6 +96,11 @@ export const getBranches = async (remote?: boolean): Promise<BranchRecord[]> => 
         active,
       };
     });
+};
+export const deleteMainMergedBranches = async () => {
+  await ShellTools.executeCommand(
+    `cd ${repositoryPath} && git branch --merged main | grep -v \"^\\* main\" | xargs -n 1 -r git branch -d`
+  );
 };
 
 export const stash = async () => {

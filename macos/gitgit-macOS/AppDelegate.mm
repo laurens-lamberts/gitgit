@@ -10,6 +10,17 @@
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
+   
+//  self.window.backgroundColor = NSColor.windowBackgroundColor;
+//  [self.window setMinSize:NSMakeSize(300, 200)];
+  //self.window.contentView.autoresizingMask = [.minXMargin, .maxXMargin, .minYMargin, .maxYMargin, .widthSizable, .heightSizable];
+  
+  
+  //let rootView = RCTRootView(bridge: bridge, moduleName: "gitgit", initialProperties: nil)
+  //let view = self.view
+  //view.addSubview(rootView)
+  //rootView.frame = view.bounds
+  //rootView.autoresizingMask = [.minXMargin, .maxXMargin, .minYMargin, .maxYMargin, .widthSizable, .heightSizable]
 
   return [super applicationDidFinishLaunching:notification];
 }

@@ -15,6 +15,7 @@
 		617546732ACCA04200F51C65 /* ShellTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617546712ACCA04200F51C65 /* ShellTools.swift */; };
 		617546742ACCA04200F51C65 /* RNShellToolsBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 617546722ACCA04200F51C65 /* RNShellToolsBridge.m */; };
 		617546772ACCA07F00F51C65 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 617546762ACCA07F00F51C65 /* Fonts */; };
+		617546812ACE069400F51C65 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617546802ACE069400F51C65 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		617546712ACCA04200F51C65 /* ShellTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShellTools.swift; sourceTree = "<group>"; };
 		617546722ACCA04200F51C65 /* RNShellToolsBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNShellToolsBridge.m; sourceTree = "<group>"; };
 		617546762ACCA07F00F51C65 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = "../../node_modules/react-native-vector-icons/Fonts"; sourceTree = "<group>"; };
+		617546802ACE069400F51C65 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6539DF2B08450D9630650776 /* Pods-gitgit-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gitgit-macOS.debug.xcconfig"; path = "Target Support Files/Pods-gitgit-macOS/Pods-gitgit-macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		AD11576B378E0752058080A7 /* Pods-gitgit-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gitgit-macOS.release.xcconfig"; path = "Target Support Files/Pods-gitgit-macOS/Pods-gitgit-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -84,6 +86,7 @@
 				514201562437B4B40078DB4F /* Info.plist */,
 				514201572437B4B40078DB4F /* main.m */,
 				514201592437B4B40078DB4F /* gitgit.entitlements */,
+				617546802ACE069400F51C65 /* ViewController.swift */,
 			);
 			path = "gitgit-macOS";
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				617546812ACE069400F51C65 /* ViewController.swift in Sources */,
 				514201582437B4B40078DB4F /* main.m in Sources */,
 				617546742ACCA04200F51C65 /* RNShellToolsBridge.m in Sources */,
 				5142014D2437B4B30078DB4F /* AppDelegate.mm in Sources */,
