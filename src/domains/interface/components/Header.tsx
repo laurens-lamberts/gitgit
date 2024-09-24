@@ -39,7 +39,7 @@ export default function Header({ syncGitStatus, syncing }: Props) {
             alert('not implemented: switch repo');
           }}
         >
-          <Text style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>{repoName}</Text>
+          <Text style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>Repo: {repoName}</Text>
         </TouchableOpacity>
       </View>
       <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>

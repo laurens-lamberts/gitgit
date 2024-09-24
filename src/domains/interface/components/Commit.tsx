@@ -3,7 +3,7 @@ import Icon from '@app/components/base/Icon';
 import Text from '@app/components/base/Text';
 import { push, commit } from '@domains/git/api';
 import React, { useState } from 'react';
-import { ActivityIndicator, TextInput, View } from 'react-native';
+import { ActivityIndicator, Alert, TextInput, View } from 'react-native';
 import useTheme from '../hooks/useTheme';
 
 interface Props {}
@@ -41,18 +41,17 @@ export default function Commit({}: Props) {
         onChangeText={(text) => setCommitMessage(text)}
         value={commitMessage}
       />
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', gap: 8 }}>
         <Button
           style={{
             flex: 1,
             height: 42,
-            marginRight: 16,
           }}
           onPress={async () => {
             setPerformingCommit(true);
             await commit(commitMessage);
             setPerformingCommit(false);
-            alert('commit performed');
+            Alert.alert('commit performed');
           }}
           is3D
         >
@@ -69,7 +68,7 @@ export default function Commit({}: Props) {
           }}
           onPress={async () => {
             await push();
-            alert('pushed');
+            Alert.alert('pushed');
           }}
           is3D
         >
