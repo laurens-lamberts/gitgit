@@ -415,7 +415,7 @@ PODS:
     - React-perflogger (= 0.71.13)
   - RNFS (2.20.0):
     - React-Core
-  - RNSVG (13.14.0):
+  - RNSVG (13.14.1):
     - React-Core
   - RNVectorIcons (9.2.0):
     - React-Core
@@ -630,7 +630,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 35cec6420c9d4144b0d06f9fdb093cf8f02bd52c
   ReactCommon: fc9d1da17fa902910dcba550a54c16e7e1c70d2c
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
-  RNSVG: d00c8f91c3cbf6d476451313a18f04d220d4f396
+  RNSVG: af3907ac5d4fa26a862b75a16d8f15bc74f2ceda
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 135109c9b8c5d1a8af3a58d21cd4c7aa7f3bf555
@@ -638,4 +638,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 86ea9a9f544f53f31b860f4fb101b9413ac5e231
 
-COCOAPODS: 1.13.0
+COCOAPODS: 1.15.2

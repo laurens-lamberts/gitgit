@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "gitgit": "jest"
+    "macos": "npx react-native run-macos",
+    "windows": "react-native run-windows",
+    "test": "jest"
   },
   "dependencies": {
     "react": "18.2.0",
